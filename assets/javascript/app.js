@@ -21,7 +21,7 @@ $(document).ready(function(){
 		}
 	}
 
-	//creates the list of countries as links
+	// creates the list of countries as links
 	var renderCountries = function(){
 		// loops through the countries and appends to the markup
 		for ( i = 0; i < countries.length; i++ ) {
@@ -49,9 +49,94 @@ $(document).ready(function(){
 
 	}
 
-	// calls the functions
+	var searchBy = [];
+	var searchByString = "";
+
+	var searchResults = function(context){
+
+		var topicText = $(context).text();
+		console.log(context + topicText);
+
+		searchBy.push(topicText);
+
+		searchByString = searchBy.toString("");
+
+	}
+
+	// when any topic is clicked do the following...
+	$(document).on("click", "#topic-list li", function() {
+		// ******TO DO resets news container
+
+		// sets the limit of articles
+		var limit = 10;
+
+		// News AJAX Call
+		$(function() {
+	        var params = {
+	            // Request parameters
+	            "q": searchByString,
+	            "count": limit,
+	            "offset": "0",
+	            "mkt": "en-us",
+	            "safeSearch": "Moderate",
+	        };
+	      
+	        $.ajax({
+	            url: "https://api.cognitive.microsoft.com/bing/v5.0/news/search?" + $.param(params),
+	            beforeSend: function(xhrObj){
+	                // Request headers
+	                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","a3f99e8021864f3f8221c9be74777427");
+	            },
+	            type: "GET",
+	            // Request body
+	            // data: params,
+	        })
+	        .done(function(data) {
+	            alert("success");
+	            console.log(data);
+
+				// for ( i=0; var i < response.data[i]; i++){
+
+				// 	var resultTopic = response.data[i];
+
+				// 	// returns data for the project constraints
+				// 	var publishedDate; 
+				// 	var rating; // (only return top results)
+
+				// 	// returns data and stores them in variables for displaying article
+				// 	var headline;
+				// 	var shortDescription;
+				// 	var longDescription;
+				// 	var source;
+				// 	var linkToArticle;
+
+				// 	$("#top-news").append()
+
+				// }
+
+	        })
+	        .fail(function() {
+	            alert("error");
+	        });
+
+	    });
+
+		searchResults(this);
+
+	})
+
+	// calls the render functions
 	renderTopics();
 	renderCountries();
-
-
 })
+
+
+
+
+
+
+
+
+
+
+
