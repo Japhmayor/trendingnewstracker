@@ -1,3 +1,22 @@
+*, *:before, *:after {box-sizing:  border-box;}
+
+#topic-list li {
+    float: left;
+    color: white;
+    padding: 15px;
+}
+
+#topic-list li:hover {
+    color: #ccc;
+}
+
+.img-map {
+  background-image: url("../images/world-map.jpg");
+  height: 450px;
+  opacity: 0.5;
+}
+  
+
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
     .row.content {height: 450px}
 
