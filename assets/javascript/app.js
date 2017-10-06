@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 
 	// arrays of topics
@@ -50,12 +51,12 @@ $(document).ready(function(){
 	}
 
 	var searchBy = [];
-	var searchByString = "";
+
 
 	var searchResults = function(context){
 
 		var topicText = $(context).text();
-		console.log(context + topicText);
+		console.log(context + " " + topicText);
 
 		searchBy.push(topicText);
 
@@ -66,7 +67,7 @@ $(document).ready(function(){
 	// when any topic is clicked do the following...
 	$(document).on("click", "#topic-list li", function() {
 		// ******TO DO resets news container
-
+		console.log(searchByString);
 		// sets the limit of articles
 		var limit = 10;
 
@@ -92,7 +93,7 @@ $(document).ready(function(){
 	            // data: params,
 	        })
 	        .done(function(data) {
-	            alert("success");
+	            
 	            console.log(data);
 
 				// for ( i=0; var i < response.data[i]; i++){
@@ -128,18 +129,21 @@ $(document).ready(function(){
 	// calls the render functions
 	renderTopics();
 	renderCountries();
+
 })
 
-var countryClicked = "";
+
+
 
 function myMap() {
   var mapOptions = {
-    // This puts the map in the center of the world
-    center: new google.maps.LatLng(0.00, 0.00),
-    // Slightly zoomed in
-    zoom: 2,
-    // Shows the map as a roadmap vs a satellite map
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+
+	// This puts the map in the center of the world
+	center: new google.maps.LatLng(0.00, 0.00),
+	// Slightly zoomed in
+	zoom: 2,
+	// Shows the map as a roadmap vs a satellite map
+	mapTypeId: google.maps.MapTypeId.ROADMAP
   }
 
   // Uses the div with the ID of "map"
@@ -147,29 +151,83 @@ function myMap() {
 
   var geocoder = new google.maps.Geocoder();
   google.maps.event.addListener(map, 'click', function(event) {
-    geocoder.geocode({
-      'latLng': event.latLng
-    }, function(results, status) {
-      // If you want to see the full array of results, uncomment the next line
-      //console.log(results);
-      if (status == google.maps.GeocoderStatus.OK) {
-        // Sometimes the the formatted_address just returns a country. Other times it shows a location or state, plus the country. This grabs the last formatted_address and splits the address fields using a comma as a delimiter.
-        var addressString = results[(results.length-1)].formatted_address;
-        var stringSplit = addressString.split(",");
-        // This stores the country clicked to a var
-        countryClicked = stringSplit[(stringSplit.length-1)];
-        // This console logs the var 
-        console.log("Country Clicked: " + countryClicked);
-      }
-    });
+	geocoder.geocode({
+	  'latLng': event.latLng
+	}, function(results, status) {
+	  // If you want to see the full array of results, uncomment the next line
+	  //console.log(results);
+	  if (status == google.maps.GeocoderStatus.OK) {
+		// Sometimes the the formatted_address just returns a country. Other times it shows a location or state, plus the country. This grabs the last formatted_address and splits the address fields using a comma as a delimiter.
+		var addressString = results[(results.length-1)].formatted_address;
+		var stringSplit = addressString.split(",");
+		// This stores the country clicked to a var
+		countryClicked = stringSplit[(stringSplit.length-1)];
+		// This console logs the var 
+		console.log("Country Clicked: " + countryClicked);
+	  }
+	});
   });
 }
 
 
+// when any topic is clicked do the following...
+$(document).on("click", "#map", function() {
+	var countryClicked;
+	// ******TO DO resets news container
+	console.log(countryClicked);
+	// sets the limit of articles
+	var limit = 10;
+
+	// News AJAX Call
+	$(function() {
+		var params = {
+			// Request parameters
+			"q": countryClicked,
+			"count": limit,
+			"offset": "0",
+			"mkt": "en-us",
+			"safeSearch": "Moderate",
+		};
+	  
+		$.ajax({
+			url: "https://api.cognitive.microsoft.com/bing/v5.0/news/search?" + $.param(params),
+			beforeSend: function(xhrObj){
+				// Request headers
+				xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","a3f99e8021864f3f8221c9be74777427");
+			},
+			type: "GET",
+			// Request body
+			// data: params,
+		})
+		.done(function(data) {
+			
+			console.log(data);
+
+			// for ( i=0; var i < response.data[i]; i++){
+
+			// 	var resultTopic = response.data[i];
+
+			// 	// returns data for the project constraints
+			// 	var publishedDate; 
+			// 	var rating; // (only return top results)
+
+			// 	// returns data and stores them in variables for displaying article
+			// 	var headline;
+			// 	var shortDescription;
+			// 	var longDescription;
+			// 	var source;
+			// 	var linkToArticle;
+
+			// 	$("#top-news").append()
+
+			// }
+
+		})
+		.fail(function() {
+			alert("error");
+		});
+
+	});
 
 
-
-
-
-
-
+})

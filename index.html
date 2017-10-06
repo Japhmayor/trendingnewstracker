@@ -11,34 +11,36 @@
 </head>
 <body>
 
-  <nav class="navbar navbar-toggleable-md navbar-light bg-faded mb-3">
+  <nav class="navbar navbar-toggleable-md navbar-inverse bg-faded mb-3">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="#">Geo-Trending News</a>
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">My Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About Us</a>
-        </li>
+      <ul id="topic-list" class="navbar-nav mr-auto">
       </ul>
       <span class="navbar-text">
-        Some message / text here
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="myprofile.html">My Profile</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Sign Up</a>
+          </li>
+        </ul>
       </span>
     </div>
   </nav>
 
-  <section id="main-content-wrapper">
-    <div class="row"> <!-- R1 Start -->
+  <section id="main-content-wrapper" class="mx-auto">
+    <div class="row my-3"> <!-- R1 Start -->
       <div class="col-md-3"> <!-- R1C1 Start -->
-        <div class="card">
-          <h2 id="breaking-news" class="my-1"> Breaking News </h2>
+        <div class="card p-2">
+          <h4 class="headline my-1 pb-2"> Breaking News 
+          </h4>
           <div id="breaking-news-box"> 
             <div>Article Title</div>
             <div>Published Date</div>
@@ -88,35 +90,53 @@
       </div> <!-- R1C1 Start -->
       <div class="col-md-9"> <!-- R1C2 Start -->
         <div class="row"> <!-- R1-R1 Start -->
+<<<<<<< HEAD
+          <div class="col-md-12 "> <!-- R1-R1C1 Start -->
+            <div id="map-container">
+              <div id="map-box" class="card img-map img-thumbnail">
+              </div>
+            </div>  
+=======
           <div class="col-md-12"> <!-- R1-R1C1 Start -->
             <div id="map" style="height:450px;background:white"></div>
             <ul id="country-list">
               Country list here
             </ul>
+>>>>>>> bb21ec260e25abd171557b0a5a8f31a540ebacb8
           </div> <!-- R1-R1C1 End -->  
         </div> <!-- R1-R1 End -->
         <div class="row"> <!-- R1-R2 Start -->
           <div class="col-md-12"> <!-- R1-R2C1 Start -->
-            <ul id="topic-list" class="main-content">
+            <!-- <ul id="topic-list" class="main-content">
               Topics here
-            </ul>
+            </ul> -->
           </div> <!-- R1-R2C1 End -->
         </div> <!-- R1-R2 End -->
         <div class="row my-1"> <!-- R1-R3 Start -->
           <div class="col-md-12"> <!-- R1-R3C1 Start -->
-            <div id="current-search-box" class="main-content">
-              Current search items here
-            </div>
+              <div class="card p-2 main-content">
+                <h4 class="headline my-1 pb-2"> Current Search:</h4>
+                <div id="current-search-box">
+                </div>
+              </div>
           </div> <!-- R1-R3C1 End -->
         </div> <!-- R1-R3 End -->
         <div class="row my-1"> <!-- R1-R4 Start -->
           <div class="col-md-12"> <!-- R1-R4C1 Start -->
-            <div id="article-box" class="main-content">
-              Articles here
+            <div class="card p-2 main-content">
+              <h4 class="headline my-1 pb-2"> Search Results: </h4>
+              <div id="article-box">
+                <p class="float-left">Image goes here</p>
+              
+                <div class="float-right"> Headline HeadlineHeadlineHeadlineHeadline </div>
+                <div class="float-right d-inline"> Published date </div>
+                <div class="float-right"> Article textArticle textArticle textArticle textArticle textArticle textArticle textArticle text</div>
+              
             </div> 
           </div> <!-- R1-R4C1 End -->
         </div> <!-- R1-R4 End -->
-      </div> <!-- R1C2 End <--></-->
+      </div> <!-- R1C2 End -->
+    </div>
   </section> <!-- End main content -->
 
 
@@ -221,4 +241,8 @@
     <script src="assets/javascript/google-map.js"></script>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> bb21ec260e25abd171557b0a5a8f31a540ebacb8
