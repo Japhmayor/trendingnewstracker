@@ -1,10 +1,22 @@
 *, *:before, *:after {box-sizing:  border-box;}
 
 
-.card{
-  background-color: lightgray;
+.card-block{
+  background-color: none;
   border: none;
+}
+
+.card-header{
+  border-bottom: 1px solid lightgray;
+}
+
+.card{
   border-radius: 0;
+  border: none;
+}
+
+.card-title{
+  border-bottom: 1px solid lightgray ;
 }
 
 .navbar{
@@ -52,9 +64,6 @@
   height: auto;
 }*/
 
-.headline{
-  border-bottom: 1px solid black;
-}
 
 .img-map {
   background-image: url("../images/world-map.jpg");
