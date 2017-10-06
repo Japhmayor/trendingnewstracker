@@ -1,4 +1,4 @@
-# Trending News Tracker
+# Geo-Trend News
 
 ##### Project Contributors/Roles:
 * Scrum Master: Imran Kazmi
