@@ -1,12 +1,38 @@
 $(document).ready(function(){
 
+	// Initialize Firebase
+	var config = {
+		apiKey: "AIzaSyCmxZPW0f95NhGPakxE416yTimGdjV4VrI",
+		authDomain: "trending-news-tracker-f44b1.firebaseapp.com",
+		databaseURL: "https://trending-news-tracker-f44b1.firebaseio.com",
+		projectId: "trending-news-tracker-f44b1",
+		storageBucket: "trending-news-tracker-f44b1.appspot.com",
+		messagingSenderId: "338347845911"
+	};
+
+	firebase.initializeApp(config);
+
+	// sets variables for firebase
+	var database = firebase.database();
+	var userName = "Eva";
+	var userEmail = "me@email.com";
+	var userTopic;
+	var userCountry = "USA";
+	var userFavArticleTitle = "This is the news.";
+
+
+	// sets varibales for AJAX Call
+	var searchBy = [];
+	var searchByString = "";
+
 	// arrays of topics
 	var topics = ["Politics", "Money", "Entertainment", "Tech", "Sports"];
 	
 	// arrays of countries
 	var countries = ["United States", "Canada", "Spain", "Russia", "Japan"];
 
-	// creates the buttons
+
+	// creates the topic buttons buttons
 	var renderTopics = function(){
 		// loops through the topics and appends to the markup
 		for ( i = 0; i < topics.length; i++ ) {
@@ -20,6 +46,7 @@ $(document).ready(function(){
 			$("#topic-list").append(topicList);
 		}
 	}
+
 
 	// creates the list of countries as links
 	var renderCountries = function(){
@@ -49,25 +76,28 @@ $(document).ready(function(){
 
 	}
 
-	var searchBy = [];
-	var searchByString = "";
-
+	// gets the topic clicked by the user
 	var searchResults = function(context){
-
+		// gets the text of the topic
 		var topicText = $(context).text();
 		console.log(context + topicText);
 
+		// pushes into an array
 		searchBy.push(topicText);
 
+		// creates a string of the array
 		searchByString = searchBy.toString("");
+		console.log(searchByString);
 
 	}
 
+
 	// when any topic is clicked do the following...
 	$(document).on("click", "#topic-list li", function() {
-		// ******TO DO resets news container
 
-		// sets the limit of articles
+		// ****** TO DO resets news container
+
+		// sets the limit of articles searched for
 		var limit = 10;
 
 		// News AJAX Call
@@ -95,24 +125,40 @@ $(document).ready(function(){
 	            alert("success");
 	            console.log(data);
 
-				// for ( i=0; var i < response.data[i]; i++){
+				for ( var i=0; i < data.value.length; i++){
 
-				// 	var resultTopic = response.data[i];
+				var resultTopic = data.value[i];
+				console.log(resultTopic);
 
-				// 	// returns data for the project constraints
-				// 	var publishedDate; 
-				// 	var rating; // (only return top results)
+				// returns data for the project constraints
+				var publishedDate = resultTopic.datePublished;
+				var rating; // (only return top results)
 
-				// 	// returns data and stores them in variables for displaying article
-				// 	var headline;
-				// 	var shortDescription;
-				// 	var longDescription;
-				// 	var source;
-				// 	var linkToArticle;
+				// returns data and stores them in variables for displaying article
+				var headline = resultTopic.name;
+				var shortDescription = resultTopic.description;					
+				var longDescription;
+				var source = resultTopic.provider.name;
+				var linkToArticle = resultTopic.url;
+				// var imageArticle = resultTopic.image.thumbnail.contentUrl;
 
-				// 	$("#top-news").append()
+				// console.log(publishedDate, headline, shortDescription, linkToArticle);
 
-				// }
+
+				var headlineDiv = $("<h1>").text(headline);
+				var shortDescriptionDiv = $("<div>").text(shortDescription);
+				var sourceDiv = $("<div>").text(source);
+				var urlDiv = $("<div>").text(linkToArticle);
+				var publishedDateDiv = $("<div>").text(publishedDate);
+
+
+				$("#article-box").append(headlineDiv);
+				$("#article-box").append(publishedDate);
+				$("#article-box").append(sourceDiv);
+				$("#article-box").append(shortDescriptionDiv);
+
+
+				}
 
 	        })
 	        .fail(function() {
@@ -120,6 +166,40 @@ $(document).ready(function(){
 	        });
 
 	    });
+
+		// __________ Writes to FIREBASE _________
+		// write to the firebase topic and country clicked
+		userTopic = $(this).text();
+
+	    // creates the data object to be written to firebase
+		var user = {
+
+			profile: {
+				name : userName,
+				email : userEmail
+			},
+
+			topicsPick: {
+				topic : userTopic
+			},
+
+			countriesPick: {
+				country : userCountry
+			},
+
+			favArticles : {
+				title : userFavArticleTitle
+			}
+
+		};
+
+		console.log(userTopic);
+
+		// updates the object in the database
+		database.ref("/users/").update(user);
+
+		// __________ END Writes to FIREBASE _________
+
 
 		searchResults(this);
 
