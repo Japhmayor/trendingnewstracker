@@ -1,5 +1,19 @@
 *, *:before, *:after {box-sizing:  border-box;}
 
+.card{
+  background-color: lightgray;
+}
+
+.main-content{
+  background-color: lightgray;
+}
+
+#breaking-news-carousel{
+  background-color: lightgray;
+  width: 100%;
+  height: auto;
+}
+
 #topic-list li {
     float: left;
     color: white;
