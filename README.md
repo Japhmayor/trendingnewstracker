@@ -1,14 +1,18 @@
-# Trending News Tracker
+# Geo-Trend News
 
-##### Project Contributors:
+##### Project Contributors/Roles:
+* Scrum Master: Imran Kazmi
+* Git  Guardian: Taiwo Tejuosho
 
-1. Eva Simon
+### Front-End
+* Josephine Belini
+* Imran Kazmi
 
+Back-End: 
+* Eva Simon
+* Grant Chessman
+* Taiwo Tejuosho
 
-Front-Enders:
+##Summary 
+This Project enables users to search for local news of any location of their choice just by clicking on a map. Users can also search for news articles by topic and a combination of both.
 
-Back-Enders: Eva Simon
-
-Scrum Master:
-
-Git Guardian:
