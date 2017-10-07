@@ -27,64 +27,23 @@ $(document).ready(function(){
 
 	// arrays of topics
 	var topics = ["Politics", "Money", "Entertainment", "Tech", "Sports"];
-	
-	// arrays of countries
-	var countries = ["United States", "Canada", "Spain", "Russia", "Japan"];
-
-
-	// creates the topic buttons buttons
-	var renderTopics = function(){
-		// loops through the topics and appends to the markup
-		for ( i = 0; i < topics.length; i++ ) {
-			// creates new list elements
-			var topicList = $("<li>");
-
-			// sets their inner text
-			topicList.text(topics[i]);
-
-			// adds to the ul element
-			$("#topic-list").append(topicList);
-		}
-	}
-
-
-	// creates the list of countries as links
-	var renderCountries = function(){
-		// loops through the countries and appends to the markup
-		for ( i = 0; i < countries.length; i++ ) {
-			//creates a list of countries in array
-			var countryList = $("<li>");
-
-			//allows the list to be links
-			var countryLink = $("<a>");
-			
-			//adds a url to link tag
-			countryLink.attr("href", "");
-			
-			//makes link text have css
-			countryLink.css("color", "red");
-			
-			//sets the inner text of the links
-			countryLink.text(countries[i]);
-			
-			//appends the links to the list
-			countryList.append(countryLink);
-			
-			//adds to the ul element
-			$("#country-list").append(countryList);
-		}
-
-	}
-
 
 	// when any topic is clicked do the following...
 	$(document).on("click", "#topic-list li", function() {
 
 		// resets news container
 		$("#article-box").empty();
+		console.log("Click Registered");
 
-		// __________ Writes to FIREBASE _________
-		// write to the firebase topic and country clicked
+		var currentTopic = $(this).text();
+
+		buildSearchBy(currentTopic);
+		// Calls News API
+		search();
+
+
+		// *****  Writes to Firebase *****
+		// writes to the firebase based on the topic and country clicked
 		userTopic = $(this).text();
 
 	    // creates the data object to be written to firebase
@@ -116,138 +75,158 @@ $(document).ready(function(){
 
 		// __________ END Writes to FIREBASE _________
 
+	}); // ends click event
 
-		// ******TO DO resets news container
-		console.log("Click Registered");
-		var topicText = $(this).text();
-		searchResults(topicText);
-		searchFunction();
+	// calls the render buttons
+	renderTopics(topics);
 
-
-	})
-
-	// calls the render functions
-	renderTopics();
-	renderCountries();
-
-})
+}); // ***** End of document.ready *****
 
 
-	var searchBy = [];
-	var searchByString = "";
+// ***** FUNCTIONS *****
 
-	var searchResults = function(string){
+// searchBy array variable holds both topic and country picked by user
+var searchBy = [];
+var searchByString = "";
+// limit 
+var searchResultLimit = 10;
 
-		console.log("searchResults string: " + string);
-		searchBy.push(string);
+
+// creates the topic buttons
+function renderTopics(topics){
+	// loops through the topics and appends to the markup
+	for ( i = 0; i < topics.length; i++ ) {
+		// creates new list elements
+		var topicList = $("<li>");
+
+		// sets their inner text
+		topicList.text(topics[i]);
+
+		// adds to the ul element
+		$("#topic-list").append(topicList);
 
 	}
 
-	var limit = 10;
+}
 
-	// News AJAX Call
-	function searchFunction() {
-		// Turns the searchBy array into a string
-		searchByString = searchBy.toString("");
-		console.log("searchByString: " + searchByString);
-		
-	    var params = {
-	        // Request parameters
-	        "q": searchByString,
-	        "count": limit,
-	        "offset": "0",
-	        "mkt": "en-us",
-	        "safeSearch": "Moderate",
-	    };
-	  
-	    $.ajax({
-	        url: "https://api.cognitive.microsoft.com/bing/v5.0/news/search?" + $.param(params),
-	        beforeSend: function(xhrObj){
-	            // Request headers
-	            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","a3f99e8021864f3f8221c9be74777427");
-	        },
-	        type: "GET",
-	        // Request body
-	        // data: params,
-	    })
-	    .done(function(data) {
-	        console.log("searchFunction success: " + searchByString);
-	        console.log(data);
+// builds the array of user clicks
+function buildSearchBy(string){
+	searchBy.push(string);
+	console.log("searchResults string: " + string);
+}
 
-	        for ( var i=0; i < data.value.length; i++){
+// Builds the News API and calls the AJAX
+function search() {
+	// Turns the searchBy array into a string delimited by +
+	searchByString = searchBy.join("+");
+	console.log("searchByString: " + searchByString);
+	
+    var params = {
+        // Request parameters
+        "q": searchByString,
+        "count": searchResultLimit,
+        "offset": "0",
+        "mkt": "en-us",
+        "safeSearch": "Moderate",
+    };
+  
+  	// News AJAX Call
+    $.ajax({
+        url: "https://api.cognitive.microsoft.com/bing/v5.0/news/search?" + $.param(params),
+        beforeSend: function(xhrObj){
+            // Request headers
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","a3f99e8021864f3f8221c9be74777427");
+        },
+        type: "GET"
 
-				var resultTopic = data.value[i];
-				console.log(resultTopic);
+    })
+    .done(function(data) {
+        console.log("search success: " + searchByString);
+        console.log(data);
 
-				// returns data for the project constraints
-				var publishedDate = resultTopic.datePublished;
-				var rating; // (only return top results)
+        for ( var i=0; i < data.value.length; i++){
 
-				// returns data and stores them in variables for displaying article
-				var headline = resultTopic.name;
-				var shortDescription = resultTopic.description;					
-				var longDescription;
-				var source = resultTopic.provider.name;
-				var linkToArticle = resultTopic.url;
-				// var imageArticle = resultTopic.image.thumbnail.contentUrl;
+			var result = data.value[i];
+			// console.log(result);
 
-				// console.log(publishedDate, headline, shortDescription, linkToArticle);
+			// returns data for the project constraints
+			var publishedDate = result.datePublished;
+			var rating; // (only return top results)
 
+			// returns data and stores them in variables for displaying article
+			var headline = result.name;
+			var shortDescription = result.description;					
+			var longDescription;
+			var source = result.provider.name;
+			var articleUrl = result.url;
+			// var imageArticle = result.image.thumbnail.contentUrl;
 
-				var headlineDiv = $("<h1>").text(headline);
-				var shortDescriptionDiv = $("<div>").text(shortDescription);
-				var sourceDiv = $("<div>").text(source);
-				var urlDiv = $("<div>").text(linkToArticle);
-				var publishedDateDiv = $("<div>").text(publishedDate);
+			// console.log(publishedDate, headline, shortDescription, articleUrl);
 
 
-				$("#article-box").append(headlineDiv);
-				$("#article-box").append(publishedDate);
-				$("#article-box").append(sourceDiv);
-				$("#article-box").append(shortDescriptionDiv);
+			var headlineDiv = $("<h1>").text(headline);
+			var shortDescriptionDiv = $("<div>").text(shortDescription);
+			var sourceDiv = $("<div>").text(source);
+			var urlDiv = $("<div>").text(articleUrl);
+			var publishedDateDiv = $("<div>").text(publishedDate);
 
+
+			$("#article-box").append(headlineDiv);
+			$("#article-box").append(publishedDate);
+			$("#article-box").append(sourceDiv);
+			$("#article-box").append(shortDescriptionDiv);
+
+		}
+
+	})
+	.fail(function() {
+		alert("error");
+	});
+
+};
+
+// Google Map API function
+function myMap() {
+	var mapOptions = {
+		// This puts the map in the center of the world
+		center: new google.maps.LatLng(0.00, 0.00),
+		// Slightly zoomed in
+		zoom: 2,
+		// Shows the map as a roadmap vs a satellite map
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	}
+
+	// Uses the div with the ID of "map"
+	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	var geocoder = new google.maps.Geocoder();
+
+	google.maps.event.addListener(map, 'click', function(event) {
+		geocoder.geocode({
+			'latLng': event.latLng
+		}, function(results, status) {
+			// If you want to see the full array of results, uncomment the next line
+			//console.log(results);
+			if (status == google.maps.GeocoderStatus.OK) {
+				// Sometimes the the formatted_address just returns a country.
+				// Other times it shows a location or state, plus the country.
+				// This grabs the last formatted_address and splits the address fields using a comma as a delimiter.
+				var addressString = results[(results.length-1)].formatted_address;
+				var stringSplit = addressString.split(",");
+				// This stores the country clicked to a var
+				var countryString = stringSplit[(stringSplit.length-1)];
+				// This console logs the var 
+				console.log("Country Clicked: " + countryString);
+
+				// passes the countryString into the searchResults function
+				buildSearchBy(countryString);
+
+				search();
 
 			}
 
-	    })
-	    .fail(function() {
-	        alert("error");
-	    });
+		});
 
-	};
+	});
 
-	function myMap() {
-	  var mapOptions = {
-	    // This puts the map in the center of the world
-	    center: new google.maps.LatLng(0.00, 0.00),
-	    // Slightly zoomed in
-	    zoom: 2,
-	    // Shows the map as a roadmap vs a satellite map
-	    mapTypeId: google.maps.MapTypeId.ROADMAP
-	  }
-
-	  // Uses the div with the ID of "map"
-	  var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-	  var geocoder = new google.maps.Geocoder();
-	  google.maps.event.addListener(map, 'click', function(event) {
-	    geocoder.geocode({
-	      'latLng': event.latLng
-	    }, function(results, status) {
-	      // If you want to see the full array of results, uncomment the next line
-	      //console.log(results);
-	      if (status == google.maps.GeocoderStatus.OK) {
-	        // Sometimes the the formatted_address just returns a country. Other times it shows a location or state, plus the country. This grabs the last formatted_address and splits the address fields using a comma as a delimiter.
-	        var addressString = results[(results.length-1)].formatted_address;
-	        var stringSplit = addressString.split(",");
-	        // This stores the country clicked to a var
-	        var countryString = stringSplit[(stringSplit.length-1)];
-	        // This console logs the var 
-	        console.log("Country Clicked: " + countryString);
-	        searchResults(countryString);
-	        searchFunction();
-	      }
-	    });
-	  });
-	}
+}
 
