@@ -188,15 +188,58 @@ function search() {
 };
 
 // Google Map API function
-function myMap() {
+
+function initMap() {
 	var mapOptions = {
 		// This puts the map in the center of the world
 		center: new google.maps.LatLng(0.00, 0.00),
 		// Slightly zoomed in
 		zoom: 2,
 		// Shows the map as a roadmap vs a satellite map
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	}
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+    // Styles the map
+    styles: [
+    
+    {elementType: 'geometry', stylers: [{color: '#212121'}]},
+
+    {elementType: 'labels.icon', stylers: [{visibility: 'off'}]},
+
+    {elementType: 'labels.text.fill', stylers: [{color: '#757575'}]},
+
+    {elementType: 'labels.text.stroke', stylers: [{color: '#212121'}]},
+
+    {featureType: 'administrative', elementType: 'geometry', stylers: [{color: '#757575'}]},
+
+    {featureType: 'administrative.country', elementType: 'labels.text.fill', stylers: [{color: '#9e9e9e'}]},
+
+    {featureType: 'administrative.land_parcel', elementType: 'labels', stylers: [{visibility: 'off'}]},
+  
+    {featureType: 'administrative.locality', elementType: 'labels.text.fill', stylers: [{color: '#bdbdbd'}]},
+
+    {featureType: 'poi', elementType: 'labels.text', stylers: [{visibility: 'off'}]},
+
+    {featureType: 'poi.park', elementType: 'geometry', stylers: [{color: '#263c3f'}]},
+  
+    {featureType: 'poi.park', elementType: 'labels.text.fill', stylers: [{color: '#6b9a76'}]},
+  
+    {featureType: 'road', elementType: 'geometry', stylers: [{visibility: 'off'}]},
+  
+    {featureType: 'road.highway', elementType: 'geometry', stylers: [{visibility: 'off'}]},
+
+    {featureType: 'transit', elementType: 'geometry', stylers: [{color: '#2f3948'}]},
+
+    {featureType: 'transit.station', elementType: 'labels.text.fill', stylers: [{color: '#d59563'}]},
+
+    {featureType: 'water', elementType: 'geometry', stylers: [{color: '#E8E8E8'}]},
+
+    {featureType: 'water', elementType: 'labels.text.fill', stylers: [{color: '#515c6d'}]},
+
+    {featureType: 'water', elementType: 'labels.text.stroke', stylers: [{color: '#17263c'}]}
+
+    ]
+
+
+}
 
 	// Uses the div with the ID of "map"
 	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
