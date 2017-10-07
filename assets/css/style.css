@@ -1,5 +1,9 @@
 *, *:before, *:after {box-sizing:  border-box;}
 
+body{
+  font-family: 'Pontano Sans', sans-serif;
+
+}
 
 .card-block{
   background-color: none;
@@ -7,7 +11,14 @@
 }
 
 .card-header{
+}
+
+.article-title{
   border-bottom: 1px solid lightgray;
+}
+
+.article-date{
+  font-size: 15px;  
 }
 
 .card{
@@ -15,8 +26,14 @@
   border: none;
 }
 
-.card-title{
-  border-bottom: 1px solid lightgray ;
+.card-title a{
+  color: black;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.card-title a:hover{
+  color: gray;
 }
 
 .navbar{
@@ -31,26 +48,33 @@
    border: none;
 }
 
-.navbar-brand{
+/*.navbar-brand{
   color: white;
+}*/
+
+/*.main-content{
+  background-color: lightgray;
+}*/
+
+#article-box{
+  width: 97%;
+  font-size: 20px;
+  margin-left: 3%;
 }
 
-.main-content{
-  background-color: lightgray;
-}
 
 #main-content-wrapper{
   width: 90%;
 }
 
-#breaking-news-carousel{
+/*#breaking-news-carousel{
   background-color: lightgray;
   width: 100%;
   height: auto;
-}
+}*/
 
 #topic-list li {
-    float: left;
+    /*float: left;*/
     color: white;
     /*padding: 15px;*/
 }
@@ -64,12 +88,12 @@
   height: auto;
 }*/
 
-
+/*
 .img-map {
   background-image: url("../images/world-map.jpg");
   height: 450px;
   opacity: 0.5;
-}
+}*/
   
 
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */

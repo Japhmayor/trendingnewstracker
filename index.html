@@ -6,38 +6,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Bootstrap 4 -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet">
   <!-- Stylesheet -->
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
   <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
-
-
 </head>
 <body>
 
-  <nav class="navbar navbar-toggleable-md navbar-inverse bg-faded mb-3">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="#">Geo-Trending News</a>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul id="topic-list" class="navbar-nav mr-auto">
-      </ul>
-      <span class="navbar-text">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="myprofile.html">My Profile</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Sign Up</a>
-          </li>
+  <header>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-faded mb-3">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="#">Geo-Trending News</a>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul id="topic-list" class="navbar-nav mr-auto">
+          <!-- Topics are populated from javascript -->
         </ul>
-      </span>
-    </div>
-  </nav>
+
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        
+        <span class="navbar-text">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="myprofile.html">My Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="">Sign Up</a>
+            </li>
+          </ul>
+        </span>
+      </div>
+    </nav>
+  </header>
 
   <section id="main-content-wrapper" class="mx-auto">
     <div class="row my-3"> <!-- R1 Start -->
@@ -46,10 +55,9 @@
           <h4 class="card-header"> Breaking News 
           </h4>
           <div id="breaking-news-box card-block"> 
-            <h4 class="card-title mt-3 pb-2"> Headline HeadlineHeadlineHeadlineHeadline </h4>
-            <div class="card-subtitle mb-2 text-muted"> Published date </div>
-            <div class="card-text"> Article textArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle text</div>
-            <a class="article-source mb-3" href="https://www.google.com" target="_blank">Read the full article<a>
+            <h4 class="card-title article-title mt-3 pb-2"><a href="https://www.google.com" target="_blank"> Headline HeadlineHeadlineHeadlineHeadline </a></h4>
+            <div class="article-date card-subtitle mb-2 text-muted"> Published date </div>
+            <div class="article-text card-text"> Article textArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle text</div>
           </div>
         </div>
         <!-- <div id="breaking-news-carousel" class="carousel slide" data-ride="carousel">
@@ -108,72 +116,58 @@
         </div> <!-- R1-R2 End -->
         <div class="row my-1"> <!-- R1-R3 Start -->
           <div class="col-md-12"> <!-- R1-R3C1 Start -->
-              <div class="card">
-                <h4 class="card-header"> Current Search:</h4>
-                <div id="current-search-box" class="card-block">
-                  Current search query here
-                </div>
+            <div class="card">
+              <h4 class="card-header"> Current Search:</h4>
+              <div id="current-search-box" class="card-block">
+                Current search query here
               </div>
+            </div>
           </div> <!-- R1-R3C1 End -->
         </div> <!-- R1-R3 End -->
         <div class="row my-1"> <!-- R1-R4 Start -->
           <div class="col-md-12"> <!-- R1-R4C1 Start -->
             <div class="card">
-              <h4 class="card-header"> Search Results </h4>
+              <p class="card-header"> Search Results </p>
               <div id="article-box">
-              
-                <h4 class="card-title mt-3 pb-2"> Headline HeadlineHeadlineHeadlineHeadline </h4>
-                <div class="card-subtitle mb-2 text-muted"> Published date </div>
-                <div class="card-text"> Article textArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle text</div>
-                <a class="article-source mb-3" href="https://www.google.com" target="_blank">Read the full article<a>
                 
-               <h4 class="card-title mt-3 pb-2"> Headline HeadlineHeadlineHeadlineHeadline </div>
-                <div class="card-subtitle mb-2 text-muted"> Published date </div>
-                <div class="card-text"> Article textArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle text</div>
-                <a class="article-source mb-3" href="https://www.google.com" target="_blank">Read the full article<a> 
+                <p class="card-title article-title mt-3 pb-2"><a href="https://www.google.com" target="_blank"> Headline HeadlineHeadlineHeadlineHeadline </a></p>
+                <p class="article-date card-subtitle mb-2 text-muted"> Published date </p>
+                <p class="article-text card-text"> Article textArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle text</p>
 
-                <h4 class="card-title mt-3 pb-2"> Headline HeadlineHeadlineHeadlineHeadline </div>
-                <div class="card-subtitle mb-2 text-muted"> Published date </div>
-                <div class="card-text"> Article textArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle text</div>
-                <a class="article-source mb-3" href="https://www.google.com" target="_blank">Read the full article<a> 
+                
 
 
 
-
-            </div> 
-          </div> <!-- R1-R4C1 End -->
-        </div> <!-- R1-R4 End -->
-      </div> <!-- R1C2 End -->
-    </div>
-  </section> <!-- End main content -->
-
-
+              </div> 
+            </div> <!-- R1-R4C1 End -->
+          </div> <!-- R1-R4 End -->
+        </div> <!-- R1C2 End -->
       </div>
+    </section> <!-- End main content -->
 
-      <div id="article-box"></div>
-    </div>
+
   </div>
-  <hr> -->
 
+  <div id="article-box"></div>
+</div>
+</div>
 
- <!--  <footer class="container-fluid">
+  <!-- <footer class="container-fluid">
     <p>Footer Text</p>
-  </footer> -->
+  </footer>
+-->
 
-
-  <!-- Jquery Link -->
-  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-  crossorigin="anonymous"></script>
-  <!-- Popper Link -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-  <!-- Bootstrap 4.0.0 -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-  <!-- Javascript Link -->
-  <script type="text/javascript" src="assets/javascript/app.js" ></script>
-  <!--This loads the map with the API key key=AIzaSyBb6g0T0iAgD3Q_1vsppg4dhzoO9I9j0Ys and runs the function "myMap"-->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBb6g0T0iAgD3Q_1vsppg4dhzoO9I9j0Ys&libraries=places&callback=myMap"></script>
-  
-<!-- <script src="assets/javascript/google-map.js"></script> -->
+<!-- Jquery Link -->
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+crossorigin="anonymous"></script>
+<!-- Popper Link -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<!-- Bootstrap 4.0.0 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- Javascript Link -->
+<script type="text/javascript" src="assets/javascript/app.js" ></script>
+<!--This loads the map with the API key key=AIzaSyBb6g0T0iAgD3Q_1vsppg4dhzoO9I9j0Ys and runs the function "myMap"-->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBb6g0T0iAgD3Q_1vsppg4dhzoO9I9j0Ys&libraries=places&callback=myMap"></script>
 
 </body>
 </html>
