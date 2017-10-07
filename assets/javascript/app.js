@@ -99,6 +99,8 @@ function renderTopics(topics){
 		// creates new list elements
 		var topicList = $("<li>");
 
+		topicList.addClass("nav-link active my-auto")
+
 		// sets their inner text
 		topicList.text(topics[i]);
 
