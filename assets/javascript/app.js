@@ -159,23 +159,28 @@ function search() {
 			var headline = result.name;
 			var shortDescription = result.description;					
 			var longDescription;
-			var source = result.provider.name;
+			var source = result.provider[0].name;
 			var articleUrl = result.url;
-			// var imageArticle = result.image.thumbnail.contentUrl;
+			var imageArticle = result.image.thumbnail.contentUrl;
 
 			// console.log(publishedDate, headline, shortDescription, articleUrl);
 
-
-			var headlineDiv = $("<h1>").text(headline);
-			var shortDescriptionDiv = $("<div>").text(shortDescription);
+			var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
+			var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
+			var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
+			var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right");
+			var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
+			var imageDiv = $("<img>").addClass("float-left mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail");
+			var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-4");
 			var sourceDiv = $("<div>").text(source);
-			var urlDiv = $("<div>").text(articleUrl);
-			var publishedDateDiv = $("<div>").text(publishedDate);
 
+			saveBtnDiv.append(saveBtnIconDiv);
+			headlineDiv.append(urlDiv);
 
 			$("#article-box").append(headlineDiv);
-			$("#article-box").append(publishedDate);
-			$("#article-box").append(sourceDiv);
+			$("#article-box").append(publishedDateDiv);
+			$("#article-box").append(saveBtnDiv);
+			$("#article-box").append(imageDiv);
 			$("#article-box").append(shortDescriptionDiv);
 
 		}
