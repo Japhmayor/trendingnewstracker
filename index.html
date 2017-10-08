@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet">
+  <!-- Icons -->
+  <script src="https://use.fontawesome.com/9d781571f0.js"></script>
   <!-- Stylesheet -->
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
@@ -27,8 +29,8 @@
         </ul>
 
         <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <input class="form-control mr-sm-2" type="text" placeholder="Search a country" aria-label="Search">
+          <button class="search-btn btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
         </form>
         
         <span class="navbar-text">
@@ -54,10 +56,10 @@
         <div class="card">
           <h4 class="card-header"> Breaking News 
           </h4>
-          <div id="breaking-news-box card-block"> 
-            <h4 class="card-title article-title mt-3 pb-2"><a href="https://www.google.com" target="_blank"> Headline HeadlineHeadlineHeadlineHeadline </a></h4>
+          <div id="breaking-news-box card-block" class="article-content"> 
+            <h4 class="card-title article-title mt-3 pb-2"><a href="<!-- Article URL here -->" target="_blank"> Headline HeadlineHeadlineHeadlineHeadline </a></h4>
             <div class="article-date card-subtitle mb-2 text-muted"> Published date </div>
-            <div class="article-text card-text"> Article textArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle text</div>
+            <div class="article-text card-text mb-4"> Article textArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle text</div>
           </div>
         </div>
         <!-- <div id="breaking-news-carousel" class="carousel slide" data-ride="carousel">
@@ -107,36 +109,27 @@
             <div id="map" style="height:450px;background:white"></div>
           </div> <!-- R1-R1C1 End -->  
         </div> <!-- R1-R1 End -->
-        <div class="row"> <!-- R1-R2 Start -->
-          <div class="col-md-12"> <!-- R1-R2C1 Start -->
-            <!-- <ul id="topic-list" class="main-content">
-              Topics here
-            </ul> -->
-          </div> <!-- R1-R2C1 End -->
-        </div> <!-- R1-R2 End -->
-        <div class="row my-1"> <!-- R1-R3 Start -->
+        <div class="row"> <!-- R1-R3 Start -->
           <div class="col-md-12"> <!-- R1-R3C1 Start -->
             <div class="card">
-              <h4 class="card-header"> Current Search:</h4>
-              <div id="current-search-box" class="card-block">
+              <h4 class="card-header my-3"> Current Search </h4>
+              <div id="current-search-box" class="card-block p-0">
                 Current search query here
               </div>
             </div>
           </div> <!-- R1-R3C1 End -->
         </div> <!-- R1-R3 End -->
-        <div class="row my-1"> <!-- R1-R4 Start -->
+        <div class="row my-3"> <!-- R1-R4 Start -->
           <div class="col-md-12"> <!-- R1-R4C1 Start -->
             <div class="card">
               <p class="card-header"> Search Results </p>
-              <div id="article-box">
+              <div id="article-box" class="article-content">
                 
                 <p class="card-title article-title mt-3 pb-2"><a href="https://www.google.com" target="_blank"> Headline HeadlineHeadlineHeadlineHeadline </a></p>
-                <p class="article-date card-subtitle mb-2 text-muted"> Published date </p>
-                <p class="article-text card-text"> Article textArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle text</p>
-
-                
-
-
+                <span class="article-date card-subtitle mb-2 text-muted"> Published date </span>
+                <!-- <i class="fa fa-bookmark" aria-hidden="true"></i> -->
+                <button class="save-btn btn btn-link float-right"><i class="fa fa-bookmark" aria-hidden="true"></i></button>
+                <p class="article-text card-text mb-4"> Article textArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle texxtArticle textArticle textArticle textArticle textArticle textArticle textArticle text</p>
 
               </div> 
             </div> <!-- R1-R4C1 End -->

@@ -2,15 +2,33 @@
 
 body{
   font-family: 'Pontano Sans', sans-serif;
-
 }
 
-.card-block{
+.search-btn:hover{
+  color: gray;
+  border-color: gray;
+}
+
+.search-btn{
+  color: white;
+  background-color: #222;
+  border-color: white;
+}
+
+.save-btn{
   background-color: none;
-  border: none;
+  border-color: #222;
+  color: #222;
+}
+
+.save-btn:hover{
+  color: gray;
+  border-color: gray;
 }
 
 .card-header{
+  font-size: 20px;
+  font-weight: bolder;
 }
 
 .article-title{
@@ -29,7 +47,7 @@ body{
 .card-title a{
   color: black;
   font-size: 30px;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 .card-title a:hover{
@@ -56,7 +74,7 @@ body{
   background-color: lightgray;
 }*/
 
-#article-box{
+.article-content{
   width: 97%;
   font-size: 20px;
   margin-left: 3%;
