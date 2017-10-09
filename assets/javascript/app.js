@@ -278,6 +278,29 @@ function updateMyAccount() {
 } // *****  End Firebase Section *****
 
 
+// Latest News Section from Google News API
+
+
+
+   // Performing GET requests to the Google News API and logging the responses to the console
+    $.ajax({
+      url: "https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890&limit=1",
+      method: "GET"
+    }).done(function(response) {
+      console.log(response);
+      console.log(response.articles[0].title);
+      
+
+      var articleTitle = response.articles[0].title;
+      var titleUrl = response.articles[0].url;
+
+      var newsDiv = $("<p>").text(articleTitle).addClass("newsTitle");
+      var urlDiv = $("<a>").text(titleUrl).attr("href",titleUrl).attr("target","_blank");
+
+
+      $(".article-text").append(newsDiv);
+      $(".article-text").append(urlDiv);
+    });
 
 
 
