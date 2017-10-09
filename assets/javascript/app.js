@@ -33,7 +33,7 @@ $(document).ready(function(){
 
 	// initializes tags input and limits the search tags
 	$("#search-input").tagsinput({
-		maxTags: 4
+		maxTags: 6
 	});
 
 	// calls search function after an item is added
@@ -74,90 +74,103 @@ function renderTopics(topics){
 
 // Builds the News API and calls the AJAX
 function search() {
-	// reads users's selected tags (click or type)
-	var searchBy = $("#search-input").tagsinput("items");
-	// turns the searchBy array into a string delimited by +
-	searchByString = searchBy.join("+");
-	console.log("searchByString: " + searchByString);
-	
-    var params = {
-        // Request parameters
-        "q": searchByString,
-        "count": searchResultLimit,
-        "offset": "0",
-        "mkt": "en-us",
-        "safeSearch": "Moderate",
-    };
-  
-  	// News AJAX Call
-    $.ajax({
-        url: "https://api.cognitive.microsoft.com/bing/v5.0/news/search?" + $.param(params),
-        beforeSend: function(xhrObj){
-            // Request headers
-            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","a3f99e8021864f3f8221c9be74777427");
-        },
-        type: "GET"
+	var xhr;
 
-    })
-    .done(function(data) {
-        console.log("search success: " + searchByString);
-        console.log(data);
+	if ( $("#search-input").val() === "" ) {
+		$("#article-box").empty();
+		xhr.abort();
+	} else {
+		$("#article-box").empty();
+		// reads users's selected tags (click or type)
+		var searchBy = $("#search-input").tagsinput("items");
+		// turns the searchBy array into a string delimited by +
+		searchByString = searchBy.join("+");
+		console.log("searchByString: " + searchByString);
+		
+	    var params = {
+	        // Request parameters
+	        "q": searchByString,
+	        "count": searchResultLimit,
+	        "offset": "0",
+	        "mkt": "en-us",
+	        "safeSearch": "Moderate",
+	    };
+	  
+	  	// News AJAX Call
+	    xhr = $.ajax({
+	        url: "https://api.cognitive.microsoft.com/bing/v5.0/news/search?" + $.param(params),
+	        beforeSend: function(xhrObj){
+	            // Request headers
+	            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","a3f99e8021864f3f8221c9be74777427");
+	        },
+	        type: "GET"
 
-        for ( var i=0; i < data.value.length; i++){
+	    })
+	    .done(function(data) {
+	        console.log("search success: " + searchByString);
+	        console.log(data);
 
-			var result = data.value[i];
-			// console.log(result);
+	        for ( var i=0; i < data.value.length; i++){
 
-			// returns data for the project constraints
-			var publishedDate = result.datePublished;
-			var rating; // (only return top results)
+				var result = data.value[i];
+				// console.log(result);
 
-			// returns data and stores them in variables for displaying article
-			var headline = result.name;
-			var shortDescription = result.description;					
-			var longDescription;
-			var source = result.provider[0].name;
-			var articleUrl = result.url;
-			var imageArticle = result.image;
-			// makes sure there is a thumbnail attached to the article, if there is a thumbnail, then it attaches the thumbnail URL
-			if (imageArticle === undefined) {
-				console.log("imageArticle " + i + " is undefined");
-			} else {
-				imageArticle = result.image.thumbnail.contentUrl;
-				console.log("imageArticle " + i + ": " + imageArticle);
-			}
+				// returns data for the project constraints
+				var publishedDate = result.datePublished;
+				var rating; // (only return top results)
 
-			// console.log(publishedDate, headline, shortDescription, articleUrl);
+				// returns data and stores them in variables for displaying article
+				var headline = result.name;
+				var shortDescription = result.description;					
+				var longDescription;
+				var source = result.provider[0].name;
+				var articleUrl = result.url;
+				var imageArticle = result.image;
+				// makes sure there is a thumbnail attached to the article, if there is a thumbnail, then it attaches the thumbnail URL
+				if (imageArticle === undefined) {
+					console.log("imageArticle " + i + " is undefined");
+				} else {
+					imageArticle = result.image.thumbnail.contentUrl;
+					console.log("imageArticle " + i + ": " + imageArticle);
+				}
 
-			var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
-			var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
-			var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
-			var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right");
-			var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
-			var imageDiv = $("<img>").addClass("float-left mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail");
-			var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-4");
-			var sourceDiv = $("<div>").text(source);
+				// console.log(publishedDate, headline, shortDescription, articleUrl);
 
-			saveBtnDiv.append(saveBtnIconDiv);
-			headlineDiv.append(urlDiv);
+				var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
+				var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
+				var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
+				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right");
+				var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
+				// checks for article thumbnail image and sets a placeholder images if thunmbnail undefined
+				var imageDiv;
+				if (imageArticle !== undefined) {
+					imageDiv = $("<img>").addClass("float-left mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail");
+				} else {
+					imageDiv = $("<img>").addClass("float-left mt-2 mx-2").attr("src","../images/placeholder.png").attr("alt","Article thumbnail");
+				}
+				var imageDiv = $("<img>").addClass("float-left mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail");
+				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-4");
+				var sourceDiv = $("<div>").text(source);
 
-			$("#article-box").append(headlineDiv);
-			$("#article-box").append(publishedDateDiv);
-			$("#article-box").append(saveBtnDiv);
-			// only attach the image to the div if it is not undefined
-			if (imageArticle !== undefined) {
+				saveBtnDiv.append(saveBtnIconDiv);
+				headlineDiv.append(urlDiv);
+
+				$("#article-box").append(headlineDiv);
+				$("#article-box").append(publishedDateDiv);
+				$("#article-box").append(saveBtnDiv);
 				$("#article-box").append(imageDiv);
+				$("#article-box").append(shortDescriptionDiv);
+
 			}
-			$("#article-box").append(shortDescriptionDiv);
 
-		}
+			updateMyAccount();
 
-		updateMyAccount();
+		})
+		.fail(function() {
+			alert("error");
+		});
 
-	})
-	.fail(function() {
-		alert("error");
-	});
+	}
 
 };
 
