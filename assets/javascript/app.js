@@ -60,7 +60,7 @@ function renderTopics(topics){
 		// creates new list elements
 		var topicList = $("<li>");
 
-		topicList.addClass("list-inline-item btn topic-list-item col-md-2 col-xs-4 px-0 mx-0")
+		topicList.addClass("list-inline-item btn topic-list-item col-lg-2 col-md-4 col-6 px-0 mx-0")
 
 		// sets their inner text
 		topicList.text(topics[i]);
