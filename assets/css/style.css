@@ -7,7 +7,7 @@ body{
 
 #topic-list{
   width: 100%;
-  display: table;
+  background: none;
 }
 
 .topic-list-item{
@@ -91,7 +91,7 @@ body{
 }
 
 .article-content{
-  width: 97%;
+  width: 100%;
   font-size: 20px;
   margin-left: 3%;
 }
@@ -152,7 +152,6 @@ body{
 }
 
 #footertopdiv{
-
   float: right;
 }
 
@@ -163,5 +162,12 @@ ul {
 .breaking-news-title a{
   font-size: 20px;
   color: black;
+}
+
+#breaking-news-header {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  text-align: center;
 }
 
