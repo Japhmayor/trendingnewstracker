@@ -293,30 +293,33 @@ $(document).ready(function(){
       url: "https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890",
       method: "GET"
     }).done(function(response) {
-      // console.log(response);
+      console.log(response);
       // console.log(response.articles[0].title);
-      
+
+      var imageUrl = response.articles[0].urlToImage; 
+      var newsPoster = $("<img>").addClass("newsimage").attr("src", imageUrl);
+      $("#breaking-news-box").append(newsPoster).attr("href",titleUrl).attr("target","_blank");
      
       for (var i = 0; i < 10; i++){
-
+        
       // this variable holds the article titles from the ajax call response
-  		var articleTitle = response.articles[i].title;
+      var articleTitle = response.articles[i].title;
 
-  	  // this variable holds the URL for the Articles 
-      	var titleUrl = response.articles[i].url;
-      	console.log(articleTitle);
+      // this variable holds the URL for the Articles 
+        var titleUrl = response.articles[i].url;
+        // console.log(articleTitle);
 
       // Dynamically creating links for the articles and appending to the DOM
-      	var newsDiv = $("<a class='urlDiv'>").text(articleTitle).attr("href",titleUrl).attr("target","_blank");
+        var newsDiv = $("<a class='urlDiv'>").text(articleTitle).attr("href",titleUrl).attr("target","_blank");
 
-      	$(".article-text").append(newsDiv);
+        
+        $("#breaking-news-box").append(newsDiv);
 
       }
 
     });
 
 })
-
 
 
 
