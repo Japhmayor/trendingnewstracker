@@ -128,27 +128,19 @@ function search() {
 				var imageArticle = result.image;
 				// makes sure there is a thumbnail attached to the article, if there is a thumbnail, then it attaches the thumbnail URL
 				if (imageArticle === undefined) {
+					imageArticle = "assets/images/placeholder.png";
 					console.log("imageArticle " + i + " is undefined");
 				} else {
 					imageArticle = result.image.thumbnail.contentUrl;
 					console.log("imageArticle " + i + ": " + imageArticle);
 				}
 
-				// console.log(publishedDate, headline, shortDescription, articleUrl);
-
 				var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
 				var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
 				var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
 				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right");
 				var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
-				// checks for article thumbnail image and sets a placeholder images if thunmbnail undefined
-				var imageDiv;
-				if (imageArticle !== undefined) {
-					imageDiv = $("<img>").addClass("float-left mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail");
-				} else {
-					imageDiv = $("<img>").addClass("float-left mt-2 mx-2").attr("src","../images/placeholder.png").attr("alt","Article thumbnail");
-				}
-				var imageDiv = $("<img>").addClass("float-left mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail");
+				var	imageDiv = $("<img>").addClass("float-left mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail").attr("width","100px");
 				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-4");
 				var sourceDiv = $("<div>").text(source);
 
