@@ -118,7 +118,14 @@ function search() {
 			var longDescription;
 			var source = result.provider[0].name;
 			var articleUrl = result.url;
-			var imageArticle = result.image.thumbnail.contentUrl;
+			var imageArticle = result.image;
+			// makes sure there is a thumbnail attached to the article, if there is a thumbnail, then it attaches the thumbnail URL
+			if (imageArticle === undefined) {
+				console.log("imageArticle " + i + " is undefined");
+			} else {
+				imageArticle = result.image.thumbnail.contentUrl;
+				console.log("imageArticle " + i + ": " + imageArticle);
+			}
 
 			// console.log(publishedDate, headline, shortDescription, articleUrl);
 
@@ -137,7 +144,10 @@ function search() {
 			$("#article-box").append(headlineDiv);
 			$("#article-box").append(publishedDateDiv);
 			$("#article-box").append(saveBtnDiv);
-			$("#article-box").append(imageDiv);
+			// only attach the image to the div if it is not undefined
+			if (imageArticle !== undefined) {
+				$("#article-box").append(imageDiv);
+			}
 			$("#article-box").append(shortDescriptionDiv);
 
 		}
@@ -268,6 +278,29 @@ function updateMyAccount() {
 } // *****  End Firebase Section *****
 
 
+// Latest News Section from Google News API
+
+
+
+   // Performing GET requests to the Google News API and logging the responses to the console
+    $.ajax({
+      url: "https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890&limit=1",
+      method: "GET"
+    }).done(function(response) {
+      console.log(response);
+      console.log(response.articles[0].title);
+      
+
+      var articleTitle = response.articles[0].title;
+      var titleUrl = response.articles[0].url;
+
+      var newsDiv = $("<p>").text(articleTitle).addClass("newsTitle");
+      var urlDiv = $("<a>").text(titleUrl).attr("href",titleUrl).attr("target","_blank");
+
+
+      $(".article-text").append(newsDiv);
+      $(".article-text").append(urlDiv);
+    });
 
 
 

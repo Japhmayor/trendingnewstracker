@@ -150,3 +150,20 @@ body{
       height:450px;
       overflow-y: scroll;
     }*/
+
+
+
+    .footerdiv{
+ display: inline-block;
+ text-align: end;
+ width: 24%;
+}
+
+#footertopdiv{
+
+  float: right;
+}
+
+ul {
+  list-style: none;
+}
