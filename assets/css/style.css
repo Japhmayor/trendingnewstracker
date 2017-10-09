@@ -73,7 +73,7 @@ body{
 }
 
 .navbar{
-  background-color: #222;
+  background-color: #3e3f42;
 }
 
 .nav-item li{
@@ -106,7 +106,7 @@ body{
 
  /* Set black background color, white text and some padding */
     footer {
-      background-color: #222 ;
+      background-color: #3e3f42 ;
       color: white;
       padding: 10px;
     }
@@ -138,7 +138,6 @@ body{
       height:450px;
       overflow-y: scroll;
     }*/
-
 
 .footerdiv{
  display: inline-block;

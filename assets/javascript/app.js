@@ -296,6 +296,7 @@ $(document).ready(function(){
       console.log(response);
       // console.log(response.articles[0].title);
 
+      // Grabs IMG from the first new article and Append to the breaking news box 
       var imageUrl = response.articles[0].urlToImage; 
       var newsPoster = $("<img>").addClass("img-fluid img-responsive mb-3").attr("src", imageUrl);
       $("#breaking-news-box").append(newsPoster).attr("href",titleUrl).attr("target","_blank");
