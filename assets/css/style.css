@@ -11,9 +11,8 @@ body{
 
 .topic-list-item{
   text-transform: uppercase;
-  display: table-cell;
+  /*display: table-cell;*/
   border-radius: 0;
-  width: 100%;
 }
 
 .topic-list-item:hover{
@@ -94,12 +93,6 @@ body{
 
 #main-content-wrapper{
   width: 90%;
-}
-
-#topic-list li {
-    /*float: left;*/
-    color: black;
-    /*padding: 15px;*/
 }
 
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
