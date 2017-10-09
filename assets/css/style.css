@@ -114,7 +114,7 @@ body{
 
  /* Set black background color, white text and some padding */
     footer {
-      background-color: #D3D3D3 ;
+      background-color: #222 ;
       color: white;
       padding: 10px;
     }
@@ -139,3 +139,24 @@ body{
       height:450px;
       overflow-y: scroll;
     }*/
+
+
+    .footerdiv{
+ display: inline-block;
+ text-align: end;
+ width: 24%;
+}
+
+#footertopdiv{
+
+  float: right;
+}
+
+ul {
+  list-style: none;
+}
+
+.urlDiv {
+  display: inline-block;
+  padding-bottom: 20px;
+}

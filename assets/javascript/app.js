@@ -290,31 +290,38 @@ function updateMyAccount() {
 
 } // *****  End Firebase Section *****
 
-
 // Latest News Section from Google News API
 
 
-
-   // Performing GET requests to the Google News API and logging the responses to the console
+$(document).ready(function(){
+   // Performing GET requests to the Google News API
     $.ajax({
-      url: "https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890&limit=1",
+      url: "https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890",
       method: "GET"
     }).done(function(response) {
-      console.log(response);
-      console.log(response.articles[0].title);
+      // console.log(response);
+      // console.log(response.articles[0].title);
       
+     
+      for (var i = 0; i < 10; i++){
 
-      var articleTitle = response.articles[0].title;
-      var titleUrl = response.articles[0].url;
+      // this variable holds the article titles from the ajax call response
+  		var articleTitle = response.articles[i].title;
 
-      var newsDiv = $("<p>").text(articleTitle).addClass("newsTitle");
-      var urlDiv = $("<a>").text(titleUrl).attr("href",titleUrl).attr("target","_blank");
+  	  // this variable holds the URL for the Articles 
+      	var titleUrl = response.articles[i].url;
+      	console.log(articleTitle);
 
+      // Dynamically creating links for the articles and appending to the DOM
+      	var newsDiv = $("<a class='urlDiv'>").text(articleTitle).attr("href",titleUrl).attr("target","_blank");
 
-      $(".article-text").append(newsDiv);
-      $(".article-text").append(urlDiv);
+      	$(".article-text").append(newsDiv);
+
+      }
+
     });
 
+})
 
 
 
