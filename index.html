@@ -42,11 +42,22 @@
     </nav>
   </header>
 
+  <div class="btn-group ml-5">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    This dropdown's menu is right-aligned
+  </button>
+  <div class="dropdown-menu dropdown-menu-right">
+    <button class="dropdown-item" type="button">Action</button>
+    <button class="dropdown-item" type="button">Another action</button>
+    <button class="dropdown-item" type="button">Something else here</button>
+  </div>
+</div>
+
   <section id="main-content-wrapper" class="mx-auto">
     <div class="row my-3"> <!-- R1 Start -->
       <div class="col-md-3"> <!-- R1C1 Start -->
         <div class="card">
-          <h4 class="card-header"> Happening Now </h4>
+          <h4 class="card-header"> Breaking News </h4>
           <div id="breaking-news-box" class="card-block article-content"> 
           </div>
         </div>
@@ -70,6 +81,7 @@
           <div class="col-md-12"> <!-- R1-R3C1 Start -->
             <div class="card float-right">
                 <div id="search-btn-box" class="card-header float-right form-inline my-0 py-0 px-0">
+
                   <input id="search-input" class="form-control mr-sm-2 tm-tag" type="text" placeholder="Search" aria-label="Search" name="tags">
                   <div class="input-group-btn">
                     <button id="search-btn" class="btn search-btn" type="submit">

@@ -13,6 +13,12 @@ body{
 .topic-list-item{
   text-transform: uppercase;
   border-radius: 0;
+  color:red;
+  border-right: solid 1px #e10a0a;
+}
+
+.topic-list-item:last-child{
+  border-right: none;
 }
 
 .topic-list-item:hover{
