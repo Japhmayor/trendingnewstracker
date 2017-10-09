@@ -50,7 +50,7 @@ body{
 }
 
 .article-title{
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid lightgrasy;
 }
 
 .article-date{
@@ -111,6 +111,13 @@ body{
       padding: 10px;
     }
 
+
+@media screen and (max-width: 767px) {
+  #logo-name{
+    display: none;
+  }
+}
+
  /* On small screens, set height to 'auto' for sidenav and grid */
   /*@media screen and (max-width: 767px) {
     .sidenav {
@@ -133,7 +140,7 @@ body{
     }*/
 
 
-    .footerdiv{
+.footerdiv{
  display: inline-block;
  text-align: end;
  width: 24%;
