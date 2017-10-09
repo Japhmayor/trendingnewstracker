@@ -12,7 +12,6 @@ body{
 
 .topic-list-item{
   text-transform: uppercase;
-  /*display: table-cell;*/
   border-radius: 0;
 }
 
