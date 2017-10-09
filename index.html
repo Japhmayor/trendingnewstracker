@@ -11,6 +11,7 @@
   <!-- Icons -->
   <script src="https://use.fontawesome.com/9d781571f0.js"></script>
   <!-- Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-tagsinput.css">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
   <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
@@ -28,10 +29,15 @@
           <!-- Topics are populated from javascript -->
         </ul>
 
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search a country" aria-label="Search">
-          <button class="search-btn btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-        </form>
+        <div class="form-inline my-2 my-lg-0">
+          <input id="search-input" class="form-control mr-sm-2 tm-tag" type="text" placeholder="Search" aria-label="Search" name="tags">
+          <div class="input-group-btn">
+            <button id="search-btn" class="btn search-btn" type="submit">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
+          <!-- <button id="search-btn" class="search-btn btn"><i class="fa fa-search" aria-hidden="true"></i></button> -->
+        </div>
         
         <span class="navbar-text">
           <ul class="navbar-nav mr-auto">
@@ -157,9 +163,11 @@ crossorigin="anonymous"></script>
 <!-- Bootstrap 4.0.0 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- Javascript Link -->
+<script type="text/javascript" src="assets/javascript/bootstrap-tagsinput.min.js"></script>
 <script type="text/javascript" src="assets/javascript/app.js" ></script>
 <!--This loads the map with the API key key=AIzaSyBb6g0T0iAgD3Q_1vsppg4dhzoO9I9j0Ys and runs the function "myMap"-->
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBb6g0T0iAgD3Q_1vsppg4dhzoO9I9j0Ys&callback=initMap"></script>
+
 
 </body>
 </html>

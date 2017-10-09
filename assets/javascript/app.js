@@ -37,9 +37,9 @@ $(document).ready(function(){
 
 		var currentTopic = $(this).text();
 
-		buildSearchBy(currentTopic);
-		// Calls News API
-		search();
+		// adds current topic to the taginput
+		$("#search-input").tagsinput('add', currentTopic);
+
 
 
 		// *****  Writes to Firebase *****
@@ -80,14 +80,24 @@ $(document).ready(function(){
 	// calls the render buttons
 	renderTopics(topics);
 
+	// initializes tags input and limits the search tags
+	$("#search-input").tagsinput({
+		maxTags: 4
+	});
+
+	// calls search function after an item is added
+	$("#search-input").on("itemAdded", search);
+	// calls search function after an item is removed
+	$("#search-input").on("itemRemoved", search);
+
+	// calls search when search button is clicked
+	$("#search-btn").on("click", search);
+	
 }); // ***** End of document.ready *****
 
 
 // ***** FUNCTIONS *****
 
-// searchBy array variable holds both topic and country picked by user
-var searchBy = [];
-var searchByString = "";
 // limit 
 var searchResultLimit = 10;
 
@@ -111,15 +121,11 @@ function renderTopics(topics){
 
 }
 
-// builds the array of user clicks
-function buildSearchBy(string){
-	searchBy.push(string);
-	console.log("searchResults string: " + string);
-}
-
 // Builds the News API and calls the AJAX
 function search() {
-	// Turns the searchBy array into a string delimited by +
+	// reads users's selected tags (click or type)
+	var searchBy = $("#search-input").tagsinput("items");
+	// turns the searchBy array into a string delimited by +
 	searchByString = searchBy.join("+");
 	console.log("searchByString: " + searchByString);
 	
@@ -262,10 +268,9 @@ function initMap() {
 				// This console logs the var 
 				console.log("Country Clicked: " + countryString);
 
-				// passes the countryString into the searchResults function
-				buildSearchBy(countryString);
+				// passes the countryString into tagsinput
+				$("#search-input").tagsinput("add", countryString);
 
-				search();
 
 			}
 
