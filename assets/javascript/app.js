@@ -297,7 +297,7 @@ $(document).ready(function(){
       // console.log(response.articles[0].title);
 
       var imageUrl = response.articles[0].urlToImage; 
-      var newsPoster = $("<img>").addClass("newsimage").attr("src", imageUrl);
+      var newsPoster = $("<img>").addClass("img-fluid img-responsive mb-3").attr("src", imageUrl);
       $("#breaking-news-box").append(newsPoster).attr("href",titleUrl).attr("target","_blank");
      
       for (var i = 0; i < 10; i++){
@@ -310,10 +310,11 @@ $(document).ready(function(){
         // console.log(articleTitle);
 
       // Dynamically creating links for the articles and appending to the DOM
-        var newsDiv = $("<a class='urlDiv'>").text(articleTitle).attr("href",titleUrl).attr("target","_blank");
+        var breakingDiv = $("<div>").addClass("breaking-news-title py-3")
+        var newsDiv = $("<a>").text(articleTitle).attr("href",titleUrl).attr("target","_blank").addClass("breaking-news-article");
 
-        
-        $("#breaking-news-box").append(newsDiv);
+        breakingDiv.append(newsDiv);
+        $("#breaking-news-box").append(breakingDiv);
 
       }
 

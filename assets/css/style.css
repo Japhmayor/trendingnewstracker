@@ -49,8 +49,8 @@ body{
   font-weight: bolder;
 }
 
-.article-title{
-  border-bottom: 1px solid lightgrasy;
+.article-title, .breaking-news-title{
+  border-bottom: 1px solid lightgray;
 }
 
 .article-date{
@@ -155,14 +155,8 @@ ul {
   list-style: none;
 }
 
-.urlDiv {
-  display: inline-block;
-  padding-bottom: 20px;
-}
-
-.newsimage{
-  display:inline-block;
-  height: 200px;
-  width: 100%;
+.breaking-news-title a{
+  font-size: 20px;
+  color: black;
 }
 
