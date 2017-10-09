@@ -26,15 +26,6 @@
       <a class="navbar-brand" href="#"><img src="assets/images/logo.png" height="40" width="40">GEO TRENDING NEWS</a>
       <div class="collapse navbar-collapse" id="navbarText">
 
-        <div class="form-inline my-2 my-lg-0">
-          <input id="search-input" class="form-control mr-sm-2 tm-tag" type="text" placeholder="Search" aria-label="Search" name="tags">
-          <div class="input-group-btn">
-            <button id="search-btn" class="btn search-btn" type="submit">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
-          </div>
-          <!-- <button id="search-btn" class="search-btn btn"><i class="fa fa-search" aria-hidden="true"></i></button> -->
-        </div>
         
         <span class="navbar-text">
           <ul class="navbar-nav mr-auto">
@@ -57,8 +48,8 @@
     <div class="row my-3"> <!-- R1 Start -->
       <div class="col-md-3"> <!-- R1C1 Start -->
         <div class="card">
-          <h4 class="card-header"> Happening Now </h4>
-          <div id="breaking-news-box card-block" class="article-content"> 
+          <h4 class="card-header"> Breaking News </h4>
+          <div id="breaking-news-box" class="card-block article-content"> 
             <p class="article-text card-text mb-4"> </p>
           </div>
         </div>
@@ -75,15 +66,21 @@
               </ul>
             </div>
             <div id="map" style="height:450px;background:white"></div>
+            
           </div> <!-- R1-R1C1 End -->  
         </div> <!-- R1-R1 End -->
         <div class="row"> <!-- R1-R3 Start -->
           <div class="col-md-12"> <!-- R1-R3C1 Start -->
-            <div class="card">
-              <h4 class="card-header my-3"> Current Search </h4>
-              <div id="current-search-box" class="card-block p-0">
-                Current search query here
-              </div>
+            <div class="card float-right">
+                <div id="search-btn-box" class="card-header float-right form-inline my-0 py-0 px-0">
+                  <input id="search-input" class="form-control mr-sm-2 tm-tag" type="text" placeholder="Search" aria-label="Search" name="tags">
+                  <div class="input-group-btn">
+                    <button id="search-btn" class="btn search-btn" type="submit">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <!-- <button id="search-btn" class="search-btn btn"><i class="fa fa-search" aria-hidden="true"></i></button> -->
+                </div>
             </div>
           </div> <!-- R1-R3C1 End -->
         </div> <!-- R1-R3 End -->
