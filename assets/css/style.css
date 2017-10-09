@@ -4,9 +4,32 @@ body{
   font-family: 'Pontano Sans', sans-serif;
 }
 
+#topic-list{
+  width: 100%;
+  display: table;
+}
+
+.topic-list-item{
+  text-transform: uppercase;
+  display: table-cell;
+  border-radius: 0;
+  width: 100%;
+}
+
+.topic-list-item:hover{
+  background-color: #e10a0a;
+  color: white;
+
+}
+
 .search-btn:hover{
   color: gray;
   border-color: gray;
+}
+
+.save-btn:hover{
+  color: white;
+  background-color: #e10a0a;
 }
 
 .search-btn{
@@ -17,14 +40,10 @@ body{
 
 .save-btn{
   background-color: none;
-  border-color: #222;
-  color: #222;
+  border-color: #e10a0a;
+  color: #e10a0a;
 }
 
-.save-btn:hover{
-  color: gray;
-  border-color: gray;
-}
 
 .card-header{
   font-size: 20px;
@@ -59,20 +78,12 @@ body{
 }
 
 .nav-item li{
-  color: red;
+  color: #e10a0a;
 }
 
 .navbar-toggler {
    border: none;
 }
-
-/*.navbar-brand{
-  color: white;
-}*/
-
-/*.main-content{
-  background-color: lightgray;
-}*/
 
 .article-content{
   width: 97%;
@@ -85,34 +96,11 @@ body{
   width: 90%;
 }
 
-/*#breaking-news-carousel{
-  background-color: lightgray;
-  width: 100%;
-  height: auto;
-}*/
-
 #topic-list li {
     /*float: left;*/
-    color: white;
+    color: black;
     /*padding: 15px;*/
 }
-
-#topic-list li:hover {
-    color: lightgray;
-}
-
-/*#map-box{
-  width: 30%
-  height: auto;
-}*/
-
-/*
-.img-map {
-  background-image: url("../images/world-map.jpg");
-  height: 450px;
-  opacity: 0.5;
-}*/
-  
 
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
     .row.content {height: 450px}
@@ -150,20 +138,3 @@ body{
       height:450px;
       overflow-y: scroll;
     }*/
-
-
-
-    .footerdiv{
- display: inline-block;
- text-align: end;
- width: 24%;
-}
-
-#footertopdiv{
-
-  float: right;
-}
-
-ul {
-  list-style: none;
-}
