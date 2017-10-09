@@ -14,7 +14,7 @@ $(document).ready(function(){
 
 
 	// arrays of topics
-	var topics = ["Politics", "Money", "Entertainment", "Tech", "Sports"];
+	var topics = ["Politics", "Finance", "Entertainment", "Technology", "Sports","Health"];
 
 	// when any topic is clicked do the following...
 	$(document).on("click", "#topic-list li", function() {
@@ -60,7 +60,7 @@ function renderTopics(topics){
 		// creates new list elements
 		var topicList = $("<li>");
 
-		topicList.addClass("nav-link active my-auto")
+		topicList.addClass("list-inline-item btn topic-list-item col-sm-3")
 
 		// sets their inner text
 		topicList.text(topics[i]);
