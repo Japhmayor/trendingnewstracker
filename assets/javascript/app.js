@@ -118,7 +118,14 @@ function search() {
 			var longDescription;
 			var source = result.provider[0].name;
 			var articleUrl = result.url;
-			var imageArticle = result.image.thumbnail.contentUrl;
+			var imageArticle = result.image;
+			// makes sure there is a thumbnail attached to the article, if there is a thumbnail, then it attaches the thumbnail URL
+			if (imageArticle === undefined) {
+				console.log("imageArticle " + i + " is undefined");
+			} else {
+				imageArticle = result.image.thumbnail.contentUrl;
+				console.log("imageArticle " + i + ": " + imageArticle);
+			}
 
 			// console.log(publishedDate, headline, shortDescription, articleUrl);
 
@@ -137,7 +144,10 @@ function search() {
 			$("#article-box").append(headlineDiv);
 			$("#article-box").append(publishedDateDiv);
 			$("#article-box").append(saveBtnDiv);
-			$("#article-box").append(imageDiv);
+			// only attach the image to the div if it is not undefined
+			if (imageArticle !== undefined) {
+				$("#article-box").append(imageDiv);
+			}
 			$("#article-box").append(shortDescriptionDiv);
 
 		}
