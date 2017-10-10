@@ -288,6 +288,9 @@ function initializeFirebaseAuth(){
 			var email = user.email;
 			$("#li-profile a").attr("title",email);
 			console.log(user.email);
+			// hides modal after user logged in succesfully
+			$('#sign-in-modal').modal('hide');
+
 		} else {
 			// redirects to login
 			// window.location = "index.html";
@@ -311,9 +314,7 @@ function initializeFirebaseAuth(){
 		var email = $("#email-input").val();
 		var password = $("#password-input").val();
 		// firebase email sign in
-		firebase.auth().signInWithEmailAndPassword(email, password).then(function(data) {
-			$('#sign-in-modal').modal('hide');
-		}, function(error) {
+		firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
 	  		// Handle Errors here.
 	  		var errorCode = error.code;
 	  		var errorMessage = error.message;
@@ -330,9 +331,7 @@ function initializeFirebaseAuth(){
 		var email = $("#email-input").val();
 		var password = $("#password-input").val();
 		// firebase email sign up
-		firebase.auth().createUserWithEmailAndPassword(email, password).then(function(data) {
-			$('#sign-in-modal').modal('hide');
-		}, function(error) {
+		firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
 	  		// Handle Errors here.
 	  		var errorCode = error.code;
 	  		var errorMessage = error.message;
