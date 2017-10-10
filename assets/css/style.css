@@ -4,6 +4,21 @@ body{
  font-family: 'Montserrat', sans-serif;
  font-weight: 400;
  line-height: 1.7;
+ background-image: url('../images/dust_@2X.png');
+}
+
+.logo-box{
+z-index: 99;
+height: 60px;
+width: 60px;
+position:fixed;
+left:5;
+top:0;
+opacity: .8;
+}
+
+#logo-name{
+  padding-left: 80px;
 }
 
 #topic-list{
@@ -14,7 +29,7 @@ body{
 .topic-list-item{
   text-transform: uppercase;
   border-radius: 0;
-  color:red;
+  color:#e10a0a;
   font-size: 13px;
   border-right: solid 1px #e10a0a;
 }
@@ -53,8 +68,10 @@ body{
 
 
 .card-header{
+  background: none;
   font-size: 20px;
-  font-weight: bolder;
+  font-weight: 500;
+  text-transform: uppercase; 
 }
 
 .article-title {
@@ -227,7 +244,9 @@ ul {
   border-radius: 0;
   color: white;
   font-weight: 700;
-  letter-spacing: 1.6px;
+  letter-spacing: 1.5px;
+  font-size: 18px;
+  text-align: center;
   text-transform: uppercase;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

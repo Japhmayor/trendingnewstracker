@@ -135,12 +135,12 @@ function search() {
 					console.log("imageArticle " + i + ": " + imageArticle);
 				}
 
-								var articleDiv = $("<div>").addClass("card");
+				var articleDiv = $("<div>").addClass("card").attr("padding", "10px");
 
 				var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
 				var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
 				var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
-				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right");
+				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right").attr("width", "20px");
 				var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
 				var	imageDiv = $("<img>").addClass("float-left mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail").attr("width","100px");
 				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-4");
