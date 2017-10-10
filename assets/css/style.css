@@ -310,3 +310,19 @@ text-decoration: none;
 color: #e10a0a;
 }
 
+/*sets css for my account modal
+*/
+
+.my-account-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.my-account-container h3 {
+  margin: 20px 0;
+}
+
+#my-account-name {
+  margin-top: 10px;
+}
+
