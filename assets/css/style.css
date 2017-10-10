@@ -295,3 +295,18 @@ ul {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+
+.scrolling-news{
+  display:inline-block;
+  margin-right: 10px;
+  color: black;
+  font-weight: 200;
+  text-decoration: none;
+}
+
+
+.scrolling-news a:hover{
+text-decoration: none;
+color: #e10a0a;
+}
+

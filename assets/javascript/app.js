@@ -44,9 +44,28 @@ $(document).ready(function(){
 	$("#search-btn").on("click", search);
 
 	initializeFirebaseAuth();
-		
+
 }); // ***** End of document.ready *****
 
+// ***** Saved Article Container and Click Handler *****
+
+// Used to store articles, click handlers call the array to get data to save articles
+var savedArticles = [];
+var selectedArticle;
+var displayName;
+var email;
+
+// Grabs article data from savedArticles
+$(document).on("click", "button", function() {
+	// Uses the ID value of i, tied to the <button> from the for loop to call savedArticles[i]
+	selectedArticle = savedArticles[parseInt(this.id)];
+	console.log("selectedArticle below");
+	console.log(selectedArticle);
+	updateMyAccount();
+
+});
+
+// ***** End Saved Article Container and Click Handler *****
 
 // ***** FUNCTIONS *****
 
@@ -115,6 +134,9 @@ function search() {
 				var result = data.value[i];
 				// console.log(result);
 
+				// Dumps the results to the savedArticles array for use with the saved articles buttons
+				savedArticles[i] = result;
+
 				// returns data for the project constraints
 				var publishedDate = result.datePublished;
 				var rating; // (only return top results)
@@ -129,10 +151,10 @@ function search() {
 				// makes sure there is a thumbnail attached to the article, if there is a thumbnail, then it attaches the thumbnail URL
 				if (imageArticle === undefined) {
 					imageArticle = "assets/images/placeholder.png";
-					console.log("imageArticle " + i + " is undefined");
+					//console.log("imageArticle " + i + " is undefined");
 				} else {
 					imageArticle = result.image.thumbnail.contentUrl;
-					console.log("imageArticle " + i + ": " + imageArticle);
+					//console.log("imageArticle " + i + ": " + imageArticle);
 				}
 
 				var articleDiv = $("<div>").addClass("card").attr("padding", "10px");
@@ -140,7 +162,7 @@ function search() {
 				var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
 				var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
 				var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
-				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right").attr("width", "20px");
+				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right").attr("width", "20px").attr("id", i);
 				var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
 				var	imageDiv = $("<img>").addClass("float-left mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail").attr("width","100px");
 				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-4");
@@ -157,7 +179,7 @@ function search() {
 				$("#article-box").append(articleDiv);
 			}
 
-			updateMyAccount();
+			// updateMyAccount();
 
 		})
 		.fail(function() {
@@ -284,8 +306,8 @@ function initializeFirebaseAuth(){
 			$("#li-log-out").show(0);
 			$("#li-log-in").hide(0);
 			// User is signed in.
-			var displayName = user.displayName;
-			var email = user.email;
+			displayName = user.displayName;
+			email = user.email;
 			$("#li-profile a").attr("title",email);
 			console.log(user.email);
 			// hides modal after user logged in succesfully
@@ -347,37 +369,47 @@ function initializeFirebaseAuth(){
 
 // writes to the firebase based on user's search
 // updates user information
-// function updateMyAccount() {
+function updateMyAccount() {
 
 // 	// sets variables for firebase
-// 	var database = firebase.database();
-// 	var userName = displayName;
-// 	var userEmail = email;
+	var database = firebase.database();
+	var userName = displayName;
+	var userEmail = email;
+	var userFavArticleTitle = selectedArticle.name;
+	var userFavArticleDate = selectedArticle.datePublished;
+	var userFavArticleText = selectedArticle.description;
+	var userFavArticleURL = selectedArticle.url;	
 
-// 	var user = {
-// 		// creates the data object to be written to firebase
-// 		profile: {
-// 			name : displayName,
-// 			email : userEmail
-// 		},
+	var user = {
+		// creates the data object to be written to firebase
+		profile: {
+			name : displayName,
+			email : userEmail
+		},
 
-// 		userSearch: $("#search-input").tagsinput("items"),
-// 	}
-// 	// // updates the object in the database
-// 	// database.ref("/users/" + userName).update(user);
+		userSearch: $("#search-input").tagsinput("items"),
+	}
+	// updates the object in the database
+	database.ref("/users/" + userName).update(user);
 
 
-// 	// var articles = {
+	var articles = {
 
-// 	// 	article : {
-// 	// 		title : ....
-// 	// 	}
-// 	// }	
+	 	article : {
+			title : userFavArticleTitle,
+			date : userFavArticleDate,
+			text : userFavArticleText,
+			url : userFavArticleURL
+	 	}
+	}	
 
-// 	// database.ref("/users/"+ userName).push(articles);
+	database.ref("/users/"+ userName).push(articles);
 
-// } // *****  End Firebase Section *****
+} // *****  End Firebase Section *****
 
+
+
+// Latest News Section from Google News API Source = CNN 
 
 
 // Latest News Section from Google News API
@@ -431,5 +463,37 @@ function populateBreakingNews () {
 $("#breaking-news-header").on("click",populateBreakingNews);
 
 
+// Scrolling Bar News is Populated here SOurce = HuffPost
 
 
+$(document).ready(function(){
+   // Performing GET requests to the Google News API
+    $.ajax({
+      url: "https://newsapi.org/v1/articles?source=the-huffington-post&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890",
+      method: "GET"
+    }).done(function(response) {
+
+     
+      for (var i = 0; i < 10; i++){
+        
+      // this variable holds the article titles from the ajax call response
+      var scrollingTitle = response.articles[i].title;
+
+      // // this variable holds the URL for the Articles 
+      var scrollingUrl = response.articles[i].url;
+        
+      // Dynamically creating links for the articles and appending to the DOM
+      var scrollingDiv = $("<div>").addClass("scrolling-news");
+      var newsBar = $("<a>").text(scrollingTitle).attr("href",scrollingUrl).attr("target","_blank").addClass("scrolling-news");
+     
+
+      scrollingDiv.append(newsBar);
+      $("#rolling-title-bar").append(scrollingDiv);
+      
+
+      }
+
+    });
+
+
+});
