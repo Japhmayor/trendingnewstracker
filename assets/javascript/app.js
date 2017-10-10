@@ -385,10 +385,10 @@ function updateMyAccount() {
 		profile: {
 			name : displayName,
 			email : userEmail
-		},
+		}
 
-		userSearch: $("#search-input").tagsinput("items"),
-	}
+
+	};
 	// updates the object in the database
 	database.ref("/users/" + userName).update(user);
 
@@ -400,8 +400,10 @@ function updateMyAccount() {
 			date : userFavArticleDate,
 			text : userFavArticleText,
 			url : userFavArticleURL
-	 	}
-	}	
+	 	},
+
+	 	userSearch: $("#search-input").tagsinput("items")
+	};	
 
 	database.ref("/users/"+ userName).push(articles);
 
@@ -409,78 +411,44 @@ function updateMyAccount() {
 
 
 
-// Latest News Section from Google News API Source = CNN 
-
-
+// Latest News Section from Google News API
 $(document).ready(function(){
    // Performing GET requests to the Google News API
     $.ajax({
       url: "https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890",
       method: "GET"
     }).done(function(response) {
-      console.log(response);
-      // console.log(response.articles[0].title);
+		console.log(response);
+		// console.log(response.articles[0].title);
 
-      // Grabs IMG from the first new article and Append to the breaking news box 
-      var imageUrl = response.articles[0].urlToImage; 
-      var newsPoster = $("<img>").addClass("img-fluid img-responsive mb-3").attr("src", imageUrl);
-      $("#breaking-news-box").append(newsPoster).attr("href",titleUrl).attr("target","_blank");
-     
-      for (var i = 0; i < 10; i++){
+		// Grabs IMG from the first new article and Append to the breaking news box 
+		var imageUrl = response.articles[0].urlToImage; 
+		var newsPoster = $("<img>").addClass("img-fluid img-responsive mb-3").attr("src", imageUrl);
+		$("#breaking-news-box").append(newsPoster).attr("href",titleUrl).attr("target","_blank");
+
+		for (var i = 0; i < 10; i++){
         
-      // this variable holds the article titles from the ajax call response
-      var articleTitle = response.articles[i].title;
+	      	// this variable holds the article titles from the ajax call response
+	      	var articleTitle = response.articles[i].title;
 
-      // this variable holds the URL for the Articles 
-        var titleUrl = response.articles[i].url;
-        // console.log(articleTitle);
 
-      // Dynamically creating links for the articles and appending to the DOM
-        var breakingDiv = $("<div>").addClass("breaking-news-title py-3");
-        var newsDiv = $("<a>").text(articleTitle).attr("href",titleUrl).attr("target","_blank").addClass("breaking-news-article");
+		  	// this variable holds the URL for the Articles 
+			var titleUrl = response.articles[i].url;
+			// console.log(articleTitle);
 
-        breakingDiv.append(newsDiv);
-        // $("#rolling-title-bar").append("<span> " + articleTitle + " | " + " </span>");
-        $("#breaking-news-box").append(breakingDiv);
+	      	// Dynamically creating links for the articles and appending to the DOM
+	        var breakingDiv = $("<div>").addClass("breaking-news-title py-3")
+	        var newsDiv = $("<a>").text(articleTitle).attr("href",titleUrl).attr("target","_blank").addClass("breaking-news-article");
 
-      }
+	        breakingDiv.append(newsDiv);
+	        $("#breaking-news-box").append(breakingDiv);
+
+		}
 
     });
 
 })
 
 
-// Scrolling Bar News is Populated here SOurce = HuffPost
 
 
-$(document).ready(function(){
-   // Performing GET requests to the Google News API
-    $.ajax({
-      url: "https://newsapi.org/v1/articles?source=the-huffington-post&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890",
-      method: "GET"
-    }).done(function(response) {
-
-     
-      for (var i = 0; i < 10; i++){
-        
-      // this variable holds the article titles from the ajax call response
-      var scrollingTitle = response.articles[i].title;
-
-      // // this variable holds the URL for the Articles 
-      var scrollingUrl = response.articles[i].url;
-        
-      // Dynamically creating links for the articles and appending to the DOM
-      var scrollingDiv = $("<div>").addClass("scrolling-news");
-      var newsBar = $("<a>").text(scrollingTitle).attr("href",scrollingUrl).attr("target","_blank").addClass("scrolling-news");
-     
-
-      scrollingDiv.append(newsBar);
-      $("#rolling-title-bar").append(scrollingDiv);
-      
-
-      }
-
-    });
-
-
-});
