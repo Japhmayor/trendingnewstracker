@@ -67,8 +67,6 @@ footer {
   background-color: none;
   border-color: #e10a0a;
   color: #e10a0a;
-  width: 50px;
-  float: right;
 }
 
 .save-btn:hover{
@@ -76,11 +74,6 @@ footer {
   background-color: #e10a0a;
 
 }
-
-
-
-
-
 
 .article-text{
   font-size: 15px;
@@ -90,10 +83,10 @@ footer {
 
 }
 
-     .article-content-news {
-      overflow-y: scroll; 
-      height:800px;
-    }
+.article-content-news {
+  overflow-y: scroll; 
+  /*height:800px;*/
+}
 
 
 .article-title {
@@ -111,8 +104,8 @@ footer {
   font-size: 12px;
   font-weight: 500;  
   text-transform: uppercase;
-      position: absolute;
-    top: 10px;
+  /*position: absolute;*/
+  top: 10px;
 }
 
 .card-header{
@@ -123,10 +116,8 @@ footer {
 }
 
 .card-other{
-
   border-radius: 0;
-  border: none;
-
+  border: none
 }
 
 .card-shadow{
@@ -137,20 +128,18 @@ footer {
 }
 
 .card{
-overflow: hidden;
- margin-top: 20px;
- padding: 20px;
- border-radius: 0;
- border: none;
- background: #F7F7F9;
- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  overflow: hidden;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 0;
+  border: none;
+  background: #F7F7F9;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 
 .card-title a{
   color: black;
-
-
 }
 
 .card-title a:hover{
@@ -163,52 +152,28 @@ overflow: hidden;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
 .nav-item li{
   color: #e10a0a;
 }
 
-
 .nav-item:hover{
   background-color: #212121;
   color: white;
-
 }
 
 .navbar-toggler {
  border: none;
 }
 
-
-
-<<<<<<< HEAD
-
-
 .article-content{
   width: 100%;
   font-size: 18px;
   font-weight: 200;
   color: grey;
-  /* margin-left: 3%*/;
 }
-=======
 #main-content-wrapper{
   width: 70%;
 }
-
-/* Set gray background color and 100% height */
-.sidenav {
-  background-color: #f1f1f1 ;
-  height: 100%;
-}
-
-/* Set black background color, white text and some padding */
-footer {
-  background-color: #3e3f42 ;
-  color: white;
-  padding: 10px;
-}
-
 
 #log-in-error { 
   display: none 
@@ -222,119 +187,58 @@ footer {
   width: 100%;
   background: none;
 }
-/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-.row.content {
-  height: 450px
+
+
+.breaking-news-scroll {
+  overflow-y: scroll; 
+  height:435px;
 }
 
-@media screen and (min-width: 980px) {
-  #main-content-wrapper{
-    width: 95%;}
-    .navbar{
-  height: 60px;
+.breaking-news-title { 
+  border-bottom: 1px solid lightgray;
+  font-size: 15px;
+  font-weight: 200;
+  line-height: 1.2;
 }
 
-  }
-
-@media screen and (max-width: 1380px) {
-  #main-content-wrapper{
-    width: 85%;}
-
-  
+.breaking-news-title a{
+  font-size: 14px;
+  color: black;
 }
 
-@media screen and (max-width: 1024px) {
-  #main-content-wrapper{
-    width:95%;
-  }
-
+.breaking-news-title a:hover{
+  text-decoration: none;
+  font-weight: 400;
 }
 
 
-@media screen and (max-width: 767px) {
-  #logo-name{
-    color: #333;
-  }
-
+#breaking-news-header {
+  background-color: #e10a0a;
+  width: 95%;
+  border-radius: 0;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-/* On small screens, set height to 'auto' for sidenav and grid */
-  /*@media screen and (max-width: 767px) {
-    .sidenav {
-      height: auto;
-      padding: 15px;
-    }
-    
-   .row.content {height: auto;}
-    }
+.scrolling-news{
+  display:inline-block;
+  margin-right: 10px;
+  color: black;
+  font-weight: 200;
+  text-decoration: none;
+}
 
-   .ads {
-      height: 20%;
-      background: #D3D3D3 ;
-      margin-top: 5%;
-    }
+.scrolling-news a:hover{
+  text-decoration: none;
+  color: #e10a0a;
+}
 
-   .scroll {
-      height:450px;
-      overflow-y: scroll;
-      }*/
-
-<<<<<<< HEAD
-      .breaking-news-scroll {
-        overflow-y: scroll; 
-        height:435px;
-      }
-
-      .breaking-news-title { 
-        border-bottom: 1px solid lightgray;
-        font-size: 15px;
-        font-weight: 200;
-        line-height: 1.2;
-      }
-
-      .breaking-news-title a{
-        font-size: 14px;
-        color: black;
-      }
-
-      .breaking-news-title a:hover{
-        text-decoration: none;
-        font-weight: 400;
-      }
-
-
-      #breaking-news-header {
-        background-color: #e10a0a;
-        /*margin: 20px;*/
-        width: 95%;
-        border-radius: 0;
-        color: white;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        font-size: 16px;
-        text-align: center;
-        text-transform: uppercase;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      }
-
-
-      .scrolling-news{
-        display:inline-block;
-        margin-right: 10px;
-        color: black;
-        font-weight: 200;
-        text-decoration: none;
-      }
-
-
-      .scrolling-news a:hover{
-        text-decoration: none;
-        color: #e10a0a;
-      }
-
-/*sets css for my account modal
-*/
-
+/*sets css for my account modal*/
 .my-account-container {
   width: 90%;
   margin: 0 auto;
@@ -348,3 +252,29 @@ footer {
   margin-top: 10px;
 }
 
+@media screen and (max-width: 1380px) {
+  #main-content-wrapper{
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  #main-content-wrapper{
+    width:95%;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  #main-content-wrapper{
+    width: 95%;
+  }  
+  .navbar{
+    height: 60px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #logo-name{
+    color: #333;
+  }
+}
