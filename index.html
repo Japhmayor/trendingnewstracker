@@ -28,12 +28,11 @@
 
   <header>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-faded mb-3">
-      <div class="container">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <a href="index.html"><img class="logo-box" src="assets/images/placeholder.png"></a>
-        <a class="navbar-brand" href="#"><span id="logo-name"> GEO TRENDING NEWS </span></a>
+        <a class="navbar-brand" href="#"><img class="logo-holder" src="assets/images/placeholder.png"><span id="logo-name"> GEO TRENDING NEWS </span></a>
         <div class="collapse navbar-collapse" id="navbarText">
           <span class="navbar-text">
             <ul id="sign-up" class="navbar-nav mr-auto">
@@ -49,7 +48,6 @@
               </li>
             </ul>
           </span>
-        </div>
       </div>
     </nav>
   </header>
@@ -64,25 +62,29 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eum, perferendis nulla eos minima facere. Omnis est cupiditate recusandae provident, ut iusto nesciunt, quaerat, incidunt quae impedit earum autem accusamus!</p>
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eum, perferendis nulla eos minima facere. </p>
+
           <div class="form-group">
             <label for="email">Email address:</label>
             <input id="email-input" type="email" class="form-control">
           </div>
+
           <div class="form-group">
             <label for="pwd">Password:</label>
             <input id="password-input" type="password" class="form-control">
           </div>
 
-          
           <div class="row justify-content-around">
             <button type="button" id="log-in-button" class="btn btn-primary col-4">Log In</button>
             <button type="button" id="sign-up-button" class="btn btn-secondary col-4">Sign-up</button>
           </div>
+
           <div id="log-in-error" class="alert alert-danger" role="alert" style="display: none;"></div>
+
           <div class="text-center">OR</div>
           <div id="firebaseui-auth-container"></div>
-          <div id="loader">Loading...</div>
+
         </div>
       </div>
     </div>

@@ -260,24 +260,6 @@ function initMap() {
 function initializeFirebaseAuth(){
 
 	var uiConfig = {
-		callbacks: {
-			signInSuccess: function(currentUser, credential, redirectUrl) {
-				// Do something.
-				// Return type determines whether we continue the redirect automatically
-				// or whether we leave that to developer to handle.
-				return true;
-			},
-			uiShown: function() {
-				// The widget is rendered.
-				// Hide the loader.
-				document.getElementById('loader').style.display = 'none';
-			}
-		},
-		credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM,
-		// Query parameter name for mode.
-		queryParameterForWidgetMode: 'mode',
-		// Query parameter name for sign in success url.
-		queryParameterForSignInSuccessUrl: 'signInSuccessUrl',
 		// Will use popup for IDP Providers sign-in flow instead of the default, redirect.
 		signInFlow: 'popup',
 		signInSuccessUrl: 'index.html',
@@ -354,7 +336,7 @@ function initializeFirebaseAuth(){
 	  		// Handle Errors here.
 	  		var errorCode = error.code;
 	  		var errorMessage = error.message;
-	  		$("#log-in-error").text(errorMessage);
+	  		$("#log-in-error").text(errorMessage).show();
 		});
 
 		e.preventDefault();
@@ -430,7 +412,7 @@ $(document).ready(function(){
 
 	        breakingDiv.append(newsDiv);
 	        $("#breaking-news-box").append(breakingDiv);
-	        
+
 		}
 
     });

@@ -17,6 +17,14 @@ top:0;
 opacity: .8;
 }
 
+.logo-holder{
+  position: absolute;
+  top: 0px;
+height: 60px;
+width: 60px;
+
+}
+
 #logo-name{
   padding-left: 80px;
 }
@@ -134,18 +142,33 @@ color: #e10a0a;
 
 .navbar{
   background-color: #333;
-  height: 60px;
+  min-height: 60px;
+
    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 
 .nav-item li{
   color: #e10a0a;
 }
 
+
 .nav-item:hover{
   background-color: #212121;
   color: white;
 
+}
+
+.navbar-toggler {
+   border: none;
+}
+
+.navbar{
+  background-color: #3e3f42;
+}
+
+.nav-item li{
+  color: #e10a0a;
 }
 
 .navbar-toggler {
