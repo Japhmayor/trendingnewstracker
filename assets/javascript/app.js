@@ -381,7 +381,7 @@ function initializeFirebaseAuth(){
 
 
 // Latest News Section from Google News API
-$(document).ready(function(){
+function populateBreakingNews () {
    // Performing GET requests to the Google News API
     $.ajax({
       url: "https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890",
@@ -390,33 +390,45 @@ $(document).ready(function(){
 		console.log(response);
 		// console.log(response.articles[0].title);
 
-		// Grabs IMG from the first new article and Append to the breaking news box 
-		var imageUrl = response.articles[0].urlToImage; 
-		var newsPoster = $("<img>").addClass("img-fluid img-responsive mb-3").attr("src", imageUrl);
-		$("#breaking-news-box").append(newsPoster).attr("href",titleUrl).attr("target","_blank");
-
-		for (var i = 0; i < 10; i++){
-        
-	      	// this variable holds the article titles from the ajax call response
-	      	var articleTitle = response.articles[i].title;
+		var currentState = $("#breaking-news-box").attr("data-empty");
+		console.log(currentState);
+		$("#breaking-news-box").empty();
 
 
-		  	// this variable holds the URL for the Articles 
-			var titleUrl = response.articles[i].url;
-			// console.log(articleTitle);
+		if(currentState === "true"){
+			$("#breaking-news-box").attr("data-empty","false");
+			$("#breaking-news-box").addClass("breaking-news-scroll card-block article-content")
 
-	      	// Dynamically creating links for the articles and appending to the DOM
-	        var breakingDiv = $("<div>").addClass("breaking-news-title py-3")
-	        var newsDiv = $("<a>").text(articleTitle).attr("href",titleUrl).attr("target","_blank").addClass("breaking-news-article");
+			// Grabs IMG from the first new article and Append to the breaking news box 
+			var imageUrl = response.articles[0].urlToImage; 
+			var newsPoster = $("<img>").addClass("img-fluid img-responsive mb-1").attr("src", imageUrl);
+			$("#breaking-news-box").append(newsPoster).attr("href",titleUrl).attr("target","_blank");
 
-	        breakingDiv.append(newsDiv);
-	        $("#breaking-news-box").append(breakingDiv);
+			for (var i = 0; i < 10; i++){
+		      	// this variable holds the article titles from the ajax call response
+		      	var articleTitle = response.articles[i].title;
 
+			  	// this variable holds the URL for the Articles 
+				var titleUrl = response.articles[i].url;
+				// console.log(articleTitle);
+
+		      	// Dynamically creating links for the articles and appending to the DOM
+		        var breakingDiv = $("<div>").addClass("breaking-news-title py-2")
+		        var newsDiv = $("<a>").text(articleTitle).attr("href",titleUrl).attr("target","_blank").addClass("breaking-news-article");
+
+		        breakingDiv.append(newsDiv);
+		        $("#breaking-news-box").append(breakingDiv);
+			}
+		}else if(currentState ==="false") {
+			$("#breaking-news-box").attr("data-empty","true");
+			$("#breaking-news-box").removeClass("breaking-news-scroll card-block article-content")
 		}
 
     });
 
-})
+} //end function populateBreakingNews
+
+$("#breaking-news-header").on("click",populateBreakingNews);
 
 
 
