@@ -380,6 +380,8 @@ function updateMyAccount() {
 	var userFavArticleText = selectedArticle.description;
 	var userFavArticleURL = selectedArticle.url;	
 
+	//
+
 	var user = {
 		// creates the data object to be written to firebase
 		profile: {
@@ -406,6 +408,38 @@ function updateMyAccount() {
 	};	
 
 	database.ref("/users/"+ userName).push(articles);
+
+	// ***** Start New Stuff Added By Grant *****
+
+	// Fetch Firebase Data
+	database.ref("/users/" + userName).on("child_added", function(childSnapshot, prevChildKey) {
+		console.log("childSnapshot.val below")
+		// Fetches all saved articles
+		console.log(childSnapshot.val().article);
+		var fetchedTitle = childSnapshot.val().article.title;
+		var fetchedDate = childSnapshot.val().article.date;
+		var fetchedText = childSnapshot.val().article.text;
+		var fetchedURL = childSnapshot.val().article.url;
+
+		var savedByUserArticleDiv = $("<div>").addClass("card").attr("padding", "10px");
+		var savedByUserHeadlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
+		var savedByUserUrlDiv = $("<a>").text(fetchedTitle).attr("href",fetchedURL).attr("target","_blank");
+		var savedByUserPublishedDateDiv = $("<span>").text("Published " + fetchedDate).addClass("article-date card-subtitle mb-2 text-muted");
+		var savedByUserShortDescriptionDiv = $("<p>").text(fetchedText).addClass("article-text card-text mb-4");
+
+		savedByUserHeadlineDiv.append(savedByUserUrlDiv);
+		savedByUserArticleDiv.append(savedByUserHeadlineDiv);
+		savedByUserArticleDiv.append(savedByUserPublishedDateDiv);
+		savedByUserArticleDiv.append(savedByUserShortDescriptionDiv);
+		$("#saved-article-box").append(savedByUserArticleDiv);
+		$("#my-account-name").html(userName);
+		$("#my-account-email").html(userEmail);
+
+	});
+
+
+
+	// ***** End New Stuff Added By Grant *****
 
 } // *****  End Firebase Section *****
 
