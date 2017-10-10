@@ -380,6 +380,8 @@ function updateMyAccount() {
 	var userFavArticleText = selectedArticle.description;
 	var userFavArticleURL = selectedArticle.url;	
 
+	//
+
 	var user = {
 		// creates the data object to be written to firebase
 		profile: {
@@ -409,8 +411,10 @@ function updateMyAccount() {
 
 	// ***** Start New Stuff Added By Grant *****
 
+	// Fetch Firebase Data
 	database.ref("/users/" + userName).on("child_added", function(childSnapshot, prevChildKey) {
 		console.log("childSnapshot.val below")
+		// Fetches all saved articles
 		console.log(childSnapshot.val().article);
 		var fetchedTitle = childSnapshot.val().article.title;
 		var fetchedDate = childSnapshot.val().article.date;
@@ -427,7 +431,10 @@ function updateMyAccount() {
 		savedByUserArticleDiv.append(savedByUserHeadlineDiv);
 		savedByUserArticleDiv.append(savedByUserPublishedDateDiv);
 		savedByUserArticleDiv.append(savedByUserShortDescriptionDiv);
-		$("#my-account-box").append(savedByUserArticleDiv);
+		$("#saved-article-box").append(savedByUserArticleDiv);
+		$("#my-account-name").html(userName);
+		$("#my-account-email").html(userEmail);
+
 	});
 
 
