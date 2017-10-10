@@ -407,6 +407,33 @@ function updateMyAccount() {
 
 	database.ref("/users/"+ userName).push(articles);
 
+	// ***** Start New Stuff Added By Grant *****
+
+	database.ref("/users/" + userName).on("child_added", function(childSnapshot, prevChildKey) {
+		console.log("childSnapshot.val below")
+		console.log(childSnapshot.val().article);
+		var fetchedTitle = childSnapshot.val().article.title;
+		var fetchedDate = childSnapshot.val().article.date;
+		var fetchedText = childSnapshot.val().article.text;
+		var fetchedURL = childSnapshot.val().article.url;
+
+		var savedByUserArticleDiv = $("<div>").addClass("card").attr("padding", "10px");
+		var savedByUserHeadlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
+		var savedByUserUrlDiv = $("<a>").text(fetchedTitle).attr("href",fetchedURL).attr("target","_blank");
+		var savedByUserPublishedDateDiv = $("<span>").text("Published " + fetchedDate).addClass("article-date card-subtitle mb-2 text-muted");
+		var savedByUserShortDescriptionDiv = $("<p>").text(fetchedText).addClass("article-text card-text mb-4");
+
+		savedByUserHeadlineDiv.append(savedByUserUrlDiv);
+		savedByUserArticleDiv.append(savedByUserHeadlineDiv);
+		savedByUserArticleDiv.append(savedByUserPublishedDateDiv);
+		savedByUserArticleDiv.append(savedByUserShortDescriptionDiv);
+		$("#my-account-box").append(savedByUserArticleDiv);
+	});
+
+
+
+	// ***** End New Stuff Added By Grant *****
+
 } // *****  End Firebase Section *****
 
 
