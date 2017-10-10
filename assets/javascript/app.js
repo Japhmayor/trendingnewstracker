@@ -423,13 +423,8 @@ function populateBreakingNews () {
       url: "https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890",
       method: "GET"
     }).done(function(response) {
-		console.log(response);
-		// console.log(response.articles[0].title);
-
 		var currentState = $("#breaking-news-box").attr("data-empty");
-		console.log(currentState);
 		$("#breaking-news-box").empty();
-
 
 		if(currentState === "true"){
 			$("#breaking-news-box").attr("data-empty","false");
@@ -446,7 +441,6 @@ function populateBreakingNews () {
 
 			  	// this variable holds the URL for the Articles 
 				var titleUrl = response.articles[i].url;
-				// console.log(articleTitle);
 
 		      	// Dynamically creating links for the articles and appending to the DOM
 		        var breakingDiv = $("<div>").addClass("breaking-news-title py-2")
@@ -459,12 +453,19 @@ function populateBreakingNews () {
 			$("#breaking-news-box").attr("data-empty","true");
 			$("#breaking-news-box").removeClass("breaking-news-scroll card-block article-content")
 		}
-
     });
-
-} //end function populateBreakingNews
+}
 
 $("#breaking-news-header").on("click",populateBreakingNews);
+
+//runs when the page is loaded
+window.onload = function(){
+	//checks to see if the window width is larger than mobile view
+    if($(window).width() > 575) {
+    	//if so, make the breaking news expanded
+        populateBreakingNews();
+    }	
+}
 
 // Scrolling Bar News is Populated here SOurce = HuffPost
 
