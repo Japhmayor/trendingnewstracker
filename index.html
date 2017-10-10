@@ -21,6 +21,8 @@
   <!-- Firebase and FirebaseUI jQuery Link -->
   <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 
 </head>
@@ -80,7 +82,7 @@
             <button type="button" id="sign-up-button" class="btn btn-secondary col-4">Sign-up</button>
           </div>
 
-          <div id="log-in-error" class="alert alert-danger" role="alert" style="display: none;"></div>
+          <div id="log-in-error" class="alert alert-danger" role="alert"></div>
 
           <div class="text-center">OR</div>
           <div id="firebaseui-auth-container"></div>
@@ -90,18 +92,25 @@
     </div>
   </div>
 
-  <div id="my-account-modal" class="modal fade">
+  <div id="my-account-modal" class="modal fade example-modal-lg">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
+          <div><a href="index.html"><img class="logo-box" src="assets/images/placeholder.png"></a></div>
           <h5 class="modal-title">My Account Details</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eum, perferendis nulla eos minima facere. </p>
+        <div class="my-account-container">
+          <h3>My Profile</h3>
+          <div><strong>Name: </strong><span id="my-account-name" >Eva Simon</span></div>
+          <div><strong>E-mail: </strong><span id="my-account-email">abc@gmail.com</span></div>
+          <h3>My Favorite Articles</h3>
+          <div id="saved-article-box" class="article-content">
+            <!-- Search results populate here -->
+          </div> 
 
         </div>
       </div>
@@ -109,79 +118,66 @@
   </div>
   
 
- <!--  <div class="btn-group ml-5">
-  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    This dropdown's menu is right-aligned
-  </button>
-  <div class="dropdown-menu dropdown-menu-right">
-    <button class="dropdown-item" type="button">Action</button>
-    <button class="dropdown-item" type="button">Another action</button>
-    <button class="dropdown-item" type="button">Something else here</button>
-  </div>
-</div> -->
-
 <section id="main-content-wrapper" class="mx-auto">
-  <div class="row my-3"> <!-- R1 Start -->
-    <div class="col-md-3" style="padding: 0;"> <!-- R1C1 Start -->
-      <div class="card-other"> 
-      <h4 id="breaking-news-header" class="card-header mb-2"> Breaking News </h4>
-        <div id="breaking-news-box" class="card-block article-content-breaking"> 
-      
+
+<marquee id="rolling-title-bar" behavior="scroll" direction="left"></marquee>
+  <div class="row my-3">
+    <div class="col-md-3 p-0">
+      <div class="card-other">
+        <h4 id="breaking-news-header" class="card-header mb-3 p-2"> Breaking News <i class="fa fa-caret-square-o-down float-right" aria-hidden="true"></i></h4>
+        <div id="breaking-news-box" data-empty="true"> 
+          <!-- Breaking News headlines populate here -->
+
         </div>
       </div>
-    </div> <!-- R1C1 Start -->
-
-    <div class="col-md-9"> <!-- R1C2 Start -->
-      <div class="row"> <!-- R1-R1 Start -->
-        
-
-
-        <div class="col-md-12"> <!-- R1-R1C1 Start -->
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-12">
           <div class="card-shadow">
             <ul id="topic-list" class="card-header list-inline my-0 py-0 px-0">
               <!-- Topics are populated from javascript -->
             </ul>
           </div>
           <div id="map" style="height:450px;background:white"></div>
-          
-        </div> <!-- R1-R1C1 End -->  
-      </div> <!-- R1-R1 End -->
-      <div class="row"> <!-- R1-R3 Start -->
-        <div class="col-md-12"> <!-- R1-R3C1 Start -->
+            <!-- Map populates here -->
+        </div>
+      </div>
+      <div class="row"> 
+        <div class="col-md-12"> 
           <div class="card-shadow float-right">
             <div id="search-btn-box" class="card-header float-right form-inline my-0 py-0 px-0">
-
               <input id="search-input" class="form-control mr-sm-2 tm-tag" type="text" placeholder="Search" aria-label="Search" name="tags">
               <div class="input-group-btn">
                 <button id="search-btn" class="btn search-btn" type="submit">
                   <i class="fa fa-search" aria-hidden="true"></i>
                 </button>
               </div>
-
               <!-- <button id="search-btn" class="search-btn btn"><i class="fa fa-search" aria-hidden="true"></i></button> -->
             </div>
           </div>
-        </div> <!-- R1-R3C1 End -->
-      </div> <!-- R1-R3 End -->
-      <div class="row my-3"> <!-- R1-R4 Start -->
-        <div class="col-md-12"> <!-- R1-R4C1 Start -->
+        </div> 
+      </div> 
+      <div class="row my-3"> 
+        <div class="col-md-12">
           <div class="card-other">
             <p class="card-header"> Search Results </p>
+
             <div id="article-box" class="article-content-news">
+
+              <!-- Search results populate here -->
+
             </div> 
-          </div> <!-- R1-R4C1 End -->
-        </div> <!-- R1-R4 End -->
-      </div> <!-- R1C2 End -->
+          </div> 
+        </div>
+      </div> 
     </div>
-  </section> <!-- End main content -->
+  </div>
+</section> 
 
 
-</div>
 
-<div id="article-box"></div>
-</div>
-</div>
-
+<!-- 
 <footer class="container-fluid">
   <div>
     <a href="#">
@@ -248,7 +244,7 @@
     </ul>
   </div> 
 </footer>
-
+ -->
 
 <!-- Jquery Link -->
 <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="

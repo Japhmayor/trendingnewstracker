@@ -44,9 +44,28 @@ $(document).ready(function(){
 	$("#search-btn").on("click", search);
 
 	initializeFirebaseAuth();
-		
+
 }); // ***** End of document.ready *****
 
+// ***** Saved Article Container and Click Handler *****
+
+// Used to store articles, click handlers call the array to get data to save articles
+var savedArticles = [];
+var selectedArticle;
+var displayName;
+var email;
+
+// Grabs article data from savedArticles
+$(document).on("click", "button", function() {
+	// Uses the ID value of i, tied to the <button> from the for loop to call savedArticles[i]
+	selectedArticle = savedArticles[parseInt(this.id)];
+	console.log("selectedArticle below");
+	console.log(selectedArticle);
+	updateMyAccount();
+
+});
+
+// ***** End Saved Article Container and Click Handler *****
 
 // ***** FUNCTIONS *****
 
@@ -115,6 +134,9 @@ function search() {
 				var result = data.value[i];
 				// console.log(result);
 
+				// Dumps the results to the savedArticles array for use with the saved articles buttons
+				savedArticles[i] = result;
+
 				// returns data for the project constraints
 				var publishedDate = result.datePublished;
 				var rating; // (only return top results)
@@ -129,10 +151,10 @@ function search() {
 				// makes sure there is a thumbnail attached to the article, if there is a thumbnail, then it attaches the thumbnail URL
 				if (imageArticle === undefined) {
 					imageArticle = "assets/images/placeholder.png";
-					console.log("imageArticle " + i + " is undefined");
+					//console.log("imageArticle " + i + " is undefined");
 				} else {
 					imageArticle = result.image.thumbnail.contentUrl;
-					console.log("imageArticle " + i + ": " + imageArticle);
+					//console.log("imageArticle " + i + ": " + imageArticle);
 				}
 
 				var articleDiv = $("<div>").addClass("card");
@@ -140,7 +162,7 @@ function search() {
 				var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
 				var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
 				var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
-				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link");
+				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right").attr("width", "20px").attr("id", i);
 				var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
 				var	imageDiv = $("<img>").addClass("img2 mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail").attr("width","100px");
 				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-4");
@@ -160,7 +182,7 @@ function search() {
 				$("#article-box").append(articleDiv);
 			}
 
-			updateMyAccount();
+			// updateMyAccount();
 
 		})
 		.fail(function() {
@@ -287,8 +309,8 @@ function initializeFirebaseAuth(){
 			$("#li-log-out").show(0);
 			$("#li-log-in").hide(0);
 			// User is signed in.
-			var displayName = user.displayName;
-			var email = user.email;
+			displayName = user.displayName;
+			email = user.email;
 			$("#li-profile a").attr("title",email);
 			console.log(user.email);
 			// hides modal after user logged in succesfully
@@ -350,77 +372,169 @@ function initializeFirebaseAuth(){
 
 // writes to the firebase based on user's search
 // updates user information
-// function updateMyAccount() {
+function updateMyAccount() {
 
 // 	// sets variables for firebase
-// 	var database = firebase.database();
-// 	var userName = displayName;
-// 	var userEmail = email;
+	var database = firebase.database();
+	var userName = displayName;
+	var userEmail = email;
+	var userFavArticleTitle = selectedArticle.name;
+	var userFavArticleDate = selectedArticle.datePublished;
+	var userFavArticleText = selectedArticle.description;
+	var userFavArticleURL = selectedArticle.url;	
 
-// 	var user = {
-// 		// creates the data object to be written to firebase
-// 		profile: {
-// 			name : displayName,
-// 			email : userEmail
-// 		},
+	//
 
-// 		userSearch: $("#search-input").tagsinput("items"),
-// 	}
-// 	// // updates the object in the database
-// 	// database.ref("/users/" + userName).update(user);
+	var user = {
+		// creates the data object to be written to firebase
+		profile: {
+			name : displayName,
+			email : userEmail
+		}
 
 
-// 	// var articles = {
+	};
+	// updates the object in the database
+	database.ref("/users/" + userName).update(user);
 
-// 	// 	article : {
-// 	// 		title : ....
-// 	// 	}
-// 	// }	
 
-// 	// database.ref("/users/"+ userName).push(articles);
+	var articles = {
 
-// } // *****  End Firebase Section *****
+	 	article : {
+			title : userFavArticleTitle,
+			date : userFavArticleDate,
+			text : userFavArticleText,
+			url : userFavArticleURL
+	 	},
 
+	 	userSearch: $("#search-input").tagsinput("items")
+	};	
+
+	database.ref("/users/"+ userName).push(articles);
+
+	// ***** Start New Stuff Added By Grant *****
+
+	// Fetch Firebase Data
+	database.ref("/users/" + userName).on("child_added", function(childSnapshot, prevChildKey) {
+		console.log("childSnapshot.val below")
+		// Fetches all saved articles
+		console.log(childSnapshot.val().article);
+		var fetchedTitle = childSnapshot.val().article.title;
+		var fetchedDate = childSnapshot.val().article.date;
+		var fetchedText = childSnapshot.val().article.text;
+		var fetchedURL = childSnapshot.val().article.url;
+
+		var savedByUserArticleDiv = $("<div>").addClass("card").attr("padding", "10px");
+		var savedByUserHeadlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
+		var savedByUserUrlDiv = $("<a>").text(fetchedTitle).attr("href",fetchedURL).attr("target","_blank");
+		var savedByUserPublishedDateDiv = $("<span>").text("Published " + fetchedDate).addClass("article-date card-subtitle mb-2 text-muted");
+		var savedByUserShortDescriptionDiv = $("<p>").text(fetchedText).addClass("article-text card-text mb-4");
+
+		savedByUserHeadlineDiv.append(savedByUserUrlDiv);
+		savedByUserArticleDiv.append(savedByUserHeadlineDiv);
+		savedByUserArticleDiv.append(savedByUserPublishedDateDiv);
+		savedByUserArticleDiv.append(savedByUserShortDescriptionDiv);
+		$("#saved-article-box").append(savedByUserArticleDiv);
+		$("#my-account-name").html(userName);
+		$("#my-account-email").html(userEmail);
+
+	});
+
+
+
+	// ***** End New Stuff Added By Grant *****
+
+} // *****  End Firebase Section *****
+
+
+
+
+// Latest News Section from Google News API Source = CNN 
 
 
 // Latest News Section from Google News API
-$(document).ready(function(){
+function populateBreakingNews () {
+
    // Performing GET requests to the Google News API
     $.ajax({
       url: "https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890",
       method: "GET"
     }).done(function(response) {
-		console.log(response);
-		// console.log(response.articles[0].title);
+		var currentState = $("#breaking-news-box").attr("data-empty");
+		$("#breaking-news-box").empty();
 
-		// Grabs IMG from the first new article and Append to the breaking news box 
-		var imageUrl = response.articles[0].urlToImage; 
-		var newsPoster = $("<img>").addClass("img-fluid img-responsive mb-3").attr("src", imageUrl);
-		$("#breaking-news-box").append(newsPoster).attr("href",titleUrl).attr("target","_blank");
+		if(currentState === "true"){
+			$("#breaking-news-box").attr("data-empty","false");
+			$("#breaking-news-box").addClass("breaking-news-scroll card-block article-content")
 
-		for (var i = 0; i < 10; i++){
-        
-	      	// this variable holds the article titles from the ajax call response
-	      	var articleTitle = response.articles[i].title;
+			// Grabs IMG from the first new article and Append to the breaking news box 
+			var imageUrl = response.articles[0].urlToImage; 
+			var newsPoster = $("<img>").addClass("img-fluid img-responsive mb-1").attr("src", imageUrl);
+			$("#breaking-news-box").append(newsPoster).attr("href",titleUrl).attr("target","_blank");
 
+			for (var i = 0; i < 10; i++){
+		      	// this variable holds the article titles from the ajax call response
+		      	var articleTitle = response.articles[i].title;
 
-		  	// this variable holds the URL for the Articles 
-			var titleUrl = response.articles[i].url;
-			// console.log(articleTitle);
+			  	// this variable holds the URL for the Articles 
+				var titleUrl = response.articles[i].url;
 
-	      	// Dynamically creating links for the articles and appending to the DOM
-	        var breakingDiv = $("<div>").addClass("breaking-news-title py-3")
-	        var newsDiv = $("<a>").text(articleTitle).attr("href",titleUrl).attr("target","_blank").addClass("breaking-news-article");
+		      	// Dynamically creating links for the articles and appending to the DOM
+		        var breakingDiv = $("<div>").addClass("breaking-news-title py-2")
+		        var newsDiv = $("<a>").text(articleTitle).attr("href",titleUrl).attr("target","_blank").addClass("breaking-news-article");
 
-	        breakingDiv.append(newsDiv);
-	        $("#breaking-news-box").append(breakingDiv);
-
+		        breakingDiv.append(newsDiv);
+		        $("#breaking-news-box").append(breakingDiv);
+			}
+		}else if(currentState ==="false") {
+			$("#breaking-news-box").attr("data-empty","true");
+			$("#breaking-news-box").removeClass("breaking-news-scroll card-block article-content")
 		}
+    });
+}
+
+$("#breaking-news-header").on("click",populateBreakingNews);
+
+//runs when the page is loaded
+window.onload = function(){
+	//checks to see if the window width is larger than mobile view
+    if($(window).width() > 575) {
+    	//if so, make the breaking news expanded
+        populateBreakingNews();
+    }	
+}
+
+// Scrolling Bar News is Populated here SOurce = HuffPost
+
+
+$(document).ready(function(){
+   // Performing GET requests to the Google News API
+    $.ajax({
+      url: "https://newsapi.org/v1/articles?source=the-huffington-post&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890",
+      method: "GET"
+    }).done(function(response) {
+
+     
+      for (var i = 0; i < 10; i++){
+        
+      // this variable holds the article titles from the ajax call response
+      var scrollingTitle = response.articles[i].title;
+
+      // // this variable holds the URL for the Articles 
+      var scrollingUrl = response.articles[i].url;
+        
+      // Dynamically creating links for the articles and appending to the DOM
+      var scrollingDiv = $("<div>").addClass("scrolling-news");
+      var newsBar = $("<a>").text(scrollingTitle).attr("href",scrollingUrl).attr("target","_blank").addClass("scrolling-news");
+     
+
+      scrollingDiv.append(newsBar);
+      $("#rolling-title-bar").append(scrollingDiv);
+      
+
+      }
 
     });
 
-})
 
-
-
-
+});

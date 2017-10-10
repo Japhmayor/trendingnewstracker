@@ -25,14 +25,6 @@ body{
 
 }
 
-#logo-name{
-  padding-left: 80px;
-}
-
-#topic-list{
-  width: 100%;
-  background: none;
-}
 
 .topic-list-item{
   text-transform: uppercase;
@@ -138,11 +130,10 @@ body{
 }
 
 .card-shadow{
- margin-top: 20px;
- border-radius: 0;
- border: none;
- background: #F7F7F9;
- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 0;
+  border: none;
+  background: #F7F7F9;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .card{
@@ -212,16 +203,32 @@ footer {
   padding: 10px;
 }
 
+
+#log-in-error { 
+  display: none 
+}
+
+#logo-name{
+  padding-left: 80px;
+}
+
+#topic-list{
+  width: 100%;
+  background: none;
+}
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 450px}
+
+
+
 @media screen and (min-width: 980px) {
   #main-content-wrapper{
     width: 95%;}
-
-  .navbar {
-    height: 60px;
-  }
-
-
+    .navbar{
+  height: 60px;
 }
+
+  }
 
 @media screen and (max-width: 1380px) {
   #main-content-wrapper{
@@ -281,17 +288,23 @@ footer {
     }
 
 
-    .article-content-breaking {
-      overflow-y: scroll; 
-      height:435px;
-    }
 
-    .breaking-news-title { 
-      border-bottom: 1px solid lightgray;
-      font-size: 15px;
-      font-weight: 200;
-      line-height: 1.2;
-    }
+.breaking-news-scroll {
+  overflow-y: scroll; 
+  height:435px;
+}
+
+.breaking-news-header{
+  width: 100%;
+}
+
+.breaking-news-title { 
+  border-bottom: 1px solid lightgray;
+    font-size: 15px;
+    font-weight: 200;
+    line-height: 1.2;
+}
+
 
     .breaking-news-title a{
       font-size: 14px;
@@ -304,16 +317,49 @@ footer {
     }
 
 
-    #breaking-news-header {
-      background-color: #e10a0a;
-      margin: 20px;
-      border-radius: 0;
-      color: white;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      font-size: 18px;
-      text-align: center;
-      text-transform: uppercase;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
+
+#breaking-news-header {
+  background-color: #e10a0a;
+  /*margin: 20px;*/
+  border-radius: 0;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+
+.scrolling-news{
+  display:inline-block;
+  margin-right: 10px;
+  color: black;
+  font-weight: 200;
+  text-decoration: none;
+}
+
+
+.scrolling-news a:hover{
+text-decoration: none;
+color: #e10a0a;
+}
+
+/*sets css for my account modal
+*/
+
+.my-account-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.my-account-container h3 {
+  margin: 20px 0;
+}
+
+#my-account-name {
+  margin-top: 10px;
+}
 
