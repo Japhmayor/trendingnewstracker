@@ -25,14 +25,6 @@ width: 60px;
 
 }
 
-#logo-name{
-  padding-left: 80px;
-}
-
-#topic-list{
-  width: 100%;
-  background: none;
-}
 
 .topic-list-item{
   text-transform: uppercase;
@@ -189,6 +181,14 @@ color: #e10a0a;
   display: none 
 }
 
+#logo-name{
+  padding-left: 80px;
+}
+
+#topic-list{
+  width: 100%;
+  background: none;
+}
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
     .row.content {height: 450px}
 
@@ -262,6 +262,10 @@ ul {
 .breaking-news-scroll {
   overflow-y: scroll; 
   height:435px;
+}
+
+.breaking-news-header{
+  width: 100%;
 }
 
 .breaking-news-title { 
