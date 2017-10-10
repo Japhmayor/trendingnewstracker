@@ -110,7 +110,6 @@ color: #e10a0a;
 }
 
 .card-shadow{
- margin-top: 20px;
   border-radius: 0;
   border: none;
   background: #F7F7F9;
@@ -186,6 +185,10 @@ color: #e10a0a;
   width: 70%;
 }
 
+#log-in-error { 
+  display: none 
+}
+
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
     .row.content {height: 450px}
 
@@ -256,7 +259,7 @@ ul {
 }
 
 
-.article-content {
+.breaking-news-scroll {
   overflow-y: scroll; 
   height:435px;
 }
@@ -281,12 +284,12 @@ ul {
 
 #breaking-news-header {
   background-color: #e10a0a;
-  margin: 20px;
+  /*margin: 20px;*/
   border-radius: 0;
   color: white;
   font-weight: 700;
   letter-spacing: 1.5px;
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
   text-transform: uppercase;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -297,4 +300,13 @@ ul {
   display:inline-block;
   margin-right: 10px;
   color: black;
+  font-weight: 200;
+  text-decoration: none;
 }
+
+
+.scrolling-news a:hover{
+text-decoration: none;
+color: #e10a0a;
+}
+
