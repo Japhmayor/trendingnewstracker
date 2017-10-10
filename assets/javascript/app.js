@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
 	// Initialize Firebase
 	var config = {
 		apiKey: "AIzaSyCmxZPW0f95NhGPakxE416yTimGdjV4VrI",
@@ -43,7 +42,9 @@ $(document).ready(function(){
 
 	// calls search when search button is clicked
 	$("#search-btn").on("click", search);
-	
+
+	initializeFirebaseAuth();
+		
 }); // ***** End of document.ready *****
 
 
@@ -74,11 +75,10 @@ function renderTopics(topics){
 
 // Builds the News API and calls the AJAX
 function search() {
-	var xhr;
-
+	// sets ajax call based on the search-input
 	if ( $("#search-input").val() === "" ) {
 		$("#article-box").empty();
-		xhr.abort();
+
 	} else {
 		$("#article-box").empty();
 		// reads users's selected tags (click or type)
@@ -97,7 +97,7 @@ function search() {
 	    };
 	  
 	  	// News AJAX Call
-	    xhr = $.ajax({
+	    $.ajax({
 	        url: "https://api.cognitive.microsoft.com/bing/v5.0/news/search?" + $.param(params),
 	        beforeSend: function(xhrObj){
 	            // Request headers
@@ -253,38 +253,151 @@ function initMap() {
 
 
 // *****  Firebase Section *****
-// writes to the firebase based on user's search
 
-// updates user information
-function updateMyAccount() {
-	// sets variables for firebase
-	var database = firebase.database();
-	var userName = "Eva";
-	var userEmail = "me@email.com";
-	var userFavArticleTitle = "This is the news.";
+// Firebase Auth config.
+function initializeFirebaseAuth(){
 
-	var user = {
-		// creates the data object to be written to firebase
-		profile: {
-			name : userName,
-			email : userEmail
+	var uiConfig = {
+		callbacks: {
+			signInSuccess: function(currentUser, credential, redirectUrl) {
+				// Do something.
+				// Return type determines whether we continue the redirect automatically
+				// or whether we leave that to developer to handle.
+				return true;
+			},
+			uiShown: function() {
+				// The widget is rendered.
+				// Hide the loader.
+				document.getElementById('loader').style.display = 'none';
+			}
 		},
+		credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM,
+		// Query parameter name for mode.
+		queryParameterForWidgetMode: 'mode',
+		// Query parameter name for sign in success url.
+		queryParameterForSignInSuccessUrl: 'signInSuccessUrl',
+		// Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+		signInFlow: 'popup',
+		signInSuccessUrl: 'index.html',
+		signInOptions: [
+			// Leave the lines as is for the providers you want to offer your users.
+			firebase.auth.GoogleAuthProvider.PROVIDER_ID
+		],
+		// Terms of service url.
+		tosUrl: '<your-tos-url>'
+	};
 
-		userSearch: $("#search-input").tagsinput("items"),
+	// Initialize the FirebaseUI Widget using Firebase.
+	var ui = new firebaseui.auth.AuthUI(firebase.auth());
+	// The start method will wait until the DOM is loaded.
+	ui.start('#firebaseui-auth-container', uiConfig);
 
-		favArticles : {
-			title : userFavArticleTitle
+
+	// checks if the authentication has changed
+	firebase.auth().onAuthStateChanged(function(user) {
+		if (user) {
+			$("#li-profile").show(0);
+			$("#li-log-out").show(0);
+			$("#li-log-in").hide(0);
+			// User is signed in.
+			var displayName = user.displayName;
+			var email = user.email;
+			$("#li-profile a").attr("title",email);
+			console.log(user.email);
+		} else {
+			// redirects to login
+			// window.location = "index.html";
+			$("#li-profile").hide(0);
+			$("#li-log-out").hide(0);
+			$("#li-log-in").show(0);
+
 		}
-	}
 
-	// updates the object in the database
-	database.ref("/users/" + userName).update(user);
+	});
 
-} // *****  End Firebase Section *****
+	// logs out the user
+	$("#li-log-out a").on("click", function(e) {
+		firebase.auth().signOut();
+		e.preventDefault();
+
+	});
+
+	// logs in the user
+	$("#log-in-button").on("click", function(e){
+		var email = $("#email-input").val();
+		var password = $("#password-input").val();
+		// firebase email sign in
+		firebase.auth().signInWithEmailAndPassword(email, password).then(function(data) {
+			$('#sign-in-modal').modal('hide');
+		}, function(error) {
+	  		// Handle Errors here.
+	  		var errorCode = error.code;
+	  		var errorMessage = error.message;
+	  		$("#log-in-error").text(errorMessage).show();
+
+		});
+
+		e.preventDefault();
+
+	});
+
+	// signs up the user
+	$("#sign-up-button").on("click", function(e){
+		var email = $("#email-input").val();
+		var password = $("#password-input").val();
+		// firebase email sign up
+		firebase.auth().createUserWithEmailAndPassword(email, password).then(function(data) {
+			$('#sign-in-modal').modal('hide');
+		}, function(error) {
+	  		// Handle Errors here.
+	  		var errorCode = error.code;
+	  		var errorMessage = error.message;
+	  		$("#log-in-error").text(errorMessage);
+		});
+
+		e.preventDefault();
+
+	});
+
+}
+
+
+// writes to the firebase based on user's search
+// updates user information
+// function updateMyAccount() {
+
+// 	// sets variables for firebase
+// 	var database = firebase.database();
+// 	var userName = displayName;
+// 	var userEmail = email;
+
+// 	var user = {
+// 		// creates the data object to be written to firebase
+// 		profile: {
+// 			name : displayName,
+// 			email : userEmail
+// 		},
+
+// 		userSearch: $("#search-input").tagsinput("items"),
+// 	}
+// 	// // updates the object in the database
+// 	// database.ref("/users/" + userName).update(user);
+
+
+// 	// var articles = {
+
+// 	// 	article : {
+// 	// 		title : ....
+// 	// 	}
+// 	// }	
+
+// 	// database.ref("/users/"+ userName).push(articles);
+
+// } // *****  End Firebase Section *****
+
+
 
 // Latest News Section from Google News API
-
-
 $(document).ready(function(){
    // Performing GET requests to the Google News API
     $.ajax({
@@ -302,7 +415,7 @@ $(document).ready(function(){
 
   	  // this variable holds the URL for the Articles 
       	var titleUrl = response.articles[i].url;
-      	console.log(articleTitle);
+      	// console.log(articleTitle);
 
       // Dynamically creating links for the articles and appending to the DOM
       	var newsDiv = $("<a class='urlDiv'>").text(articleTitle).attr("href",titleUrl).attr("target","_blank");

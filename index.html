@@ -4,22 +4,31 @@
   <title>Geo-Trending News</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap 4 -->
+
+  <!-- Bootstrap CDN Link -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-<!-- Font -->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,500,700" rel="stylesheet">
-  <!-- Icons -->
-  <script src="https://use.fontawesome.com/9d781571f0.js"></script>
-  <!-- Stylesheet -->
+  <!-- FirebaseUI Style CDN Link -->
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,500,700" rel="stylesheet">
+  <!-- Tagsinput CSS Link -->
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-tagsinput.css">
+  <!-- CSS Link -->
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
+  <!-- FontAwesome Icons -->
+  <script src="https://use.fontawesome.com/9d781571f0.js"></script>
+  <!-- Firebase and FirebaseUI jQuery Link -->
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.4.0/firebaseui.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+
+
 </head>
 <body>
 
   <header>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-faded mb-3">
+      <div class="container">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -33,26 +42,61 @@
               <i class="fa fa-search" aria-hidden="true"></i>
             </button>
           </div>
-          <!-- <button id="search-btn" class="search-btn btn"><i class="fa fa-search" aria-hidden="true"></i></button> -->
         </div>
         
         <span class="navbar-text">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+          <ul id="sign-up" class="navbar-nav mr-auto">
+
+            <li id="li-profile" class="nav-item">
               <a class="nav-link active" href="myprofile.html">My Profile</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="">Login</a>
+            <li id="li-log-in" class="nav-item">
+              <a class="nav-link active" href="" data-toggle="modal" data-target="#sign-in-modal">Log In</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="">Sign Up</a>
+            <li id="li-log-out" class="nav-item">
+              <a class="nav-link active" href="">Log Out</a>
             </li>
           </ul>
         </span>
       </div>
+    </div>
     </nav>
   </header>
 
+  <div id="sign-in-modal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Please Log In!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eum, perferendis nulla eos minima facere. Omnis est cupiditate recusandae provident, ut iusto nesciunt, quaerat, incidunt quae impedit earum autem accusamus!</p>
+          <div class="form-group">
+            <label for="email">Email address:</label>
+            <input id="email-input" type="email" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input id="password-input" type="password" class="form-control">
+          </div>
+
+          
+          <div class="row justify-content-around">
+              <button type="button" id="log-in-button" class="btn btn-primary col-4">Log In</button>
+              <button type="button" id="sign-up-button" class="btn btn-secondary col-4">Sign-up</button>
+          </div>
+          <div id="log-in-error" class="alert alert-danger" role="alert" style="display: none;"></div>
+          <div class="text-center">OR</div>
+          <div id="firebaseui-auth-container"></div>
+          <div id="loader">Loading...</div>
+    </div>
+      </div>
+    </div>
+  </div>
+ 
   <section id="main-content-wrapper" class="mx-auto">
     <div class="row my-3"> <!-- R1 Start -->
       <div class="col-md-3"> <!-- R1C1 Start -->
@@ -184,18 +228,19 @@
 </footer>
 
 
-<!-- Jquery Link -->
-<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-crossorigin="anonymous"></script>
-<!-- Popper Link -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<!-- Bootstrap 4.0.0 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-<!-- Javascript Link -->
-<script type="text/javascript" src="assets/javascript/bootstrap-tagsinput.min.js"></script>
-<script type="text/javascript" src="assets/javascript/app.js" ></script>
-<!--This loads the map with the API key key=AIzaSyBb6g0T0iAgD3Q_1vsppg4dhzoO9I9j0Ys and runs the function "myMap"-->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBb6g0T0iAgD3Q_1vsppg4dhzoO9I9j0Ys&callback=initMap"></script>
+  <!-- Jquery Link -->
+  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+  <!-- Popper Link -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+  <!-- Bootstrap 4.0.0 -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+  <!-- Tagsinput Javascript Link -->
+  <script type="text/javascript" src="assets/javascript/bootstrap-tagsinput.min.js"></script>
+  <!-- App jQuery Link -->
+  <script type="text/javascript" src="assets/javascript/app.js" ></script>
+  <!--This loads the map with the API key key=AIzaSyBb6g0T0iAgD3Q_1vsppg4dhzoO9I9j0Ys and runs the function "myMap"-->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBb6g0T0iAgD3Q_1vsppg4dhzoO9I9j0Ys&callback=initMap"></script>
 
 
 </body>
