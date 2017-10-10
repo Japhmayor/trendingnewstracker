@@ -3,18 +3,39 @@
 body{
  font-family: 'Montserrat', sans-serif;
  font-weight: 400;
+ line-height: 1.7;
+ background-image: url('../images/dust_@2X.png');
+}
+
+.logo-box{
+z-index: 99;
+height: 60px;
+width: 60px;
+position:fixed;
+left:5;
+top:0;
+opacity: .8;
+}
+
+#logo-name{
+  padding-left: 80px;
 }
 
 #topic-list{
   width: 100%;
-  display: table;
+  background: none;
 }
 
 .topic-list-item{
   text-transform: uppercase;
-  display: table-cell;
   border-radius: 0;
-  width: 100%;
+  color:#e10a0a;
+  font-size: 13px;
+  border-right: solid 1px #e10a0a;
+}
+
+.topic-list-item:last-child{
+  border-right: none;
 }
 
 .topic-list-item:hover{
@@ -47,27 +68,64 @@ body{
 
 
 .card-header{
+  background: none;
   font-size: 20px;
-  font-weight: bolder;
+  font-weight: 500;
+  text-transform: uppercase; 
 }
 
-.article-title{
+.article-title {
   border-bottom: 1px solid lightgray;
+    font-size: 20px;
+    font-weight: 500;
+ 
+}
+
+.breaking-news-title { 
+  border-bottom: 1px solid lightgray;
+    font-size: 15px;
+    font-weight: 200;
+    line-height: 1.2;
+}
+
+.article-title a: hover{
+text-decoration: none;
+color: #e10a0a;
+}
+
+
+.breaking-news-title a:hover{
+  text-decoration: none;
+  font-weight: 400;
 }
 
 .article-date{
-  font-size: 15px;  
+  font-size: 15px;
+  font-weight: 500;  
+
+}
+
+.card-other{
+
+  border-radius: 0;
+  border: none;
+
 }
 
 .card{
+ margin-top: 20px;
   border-radius: 0;
   border: none;
+  background: #F7F7F9;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+
 
 .card-title a{
   color: black;
-  font-size: 30px;
-  /*font-weight: bold;*/
+
+
 }
 
 .card-title a:hover{
@@ -75,11 +133,19 @@ body{
 }
 
 .navbar{
-  background-color: #222;
+  background-color: #333;
+  height: 60px;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .nav-item li{
   color: #e10a0a;
+}
+
+.nav-item:hover{
+  background-color: #212121;
+  color: white;
+
 }
 
 .navbar-toggler {
@@ -87,20 +153,16 @@ body{
 }
 
 .article-content{
-  width: 97%;
-  font-size: 20px;
-  margin-left: 3%;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 200;
+  color: grey;
+ /* margin-left: 3%*/;
 }
 
 
 #main-content-wrapper{
-  width: 90%;
-}
-
-#topic-list li {
-    /*float: left;*/
-    color: black;
-    /*padding: 15px;*/
+  width: 70%;
 }
 
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
@@ -114,10 +176,28 @@ body{
 
  /* Set black background color, white text and some padding */
     footer {
-      background-color: #222 ;
+      background-color: #3e3f42 ;
       color: white;
       padding: 10px;
     }
+
+@media screen and (max-width: 1380px) {
+  #main-content-wrapper{
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  #main-content-wrapper{
+    width:95%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #logo-name{
+    display: none;
+  }
+}
 
  /* On small screens, set height to 'auto' for sidenav and grid */
   /*@media screen and (max-width: 767px) {
@@ -140,15 +220,13 @@ body{
       overflow-y: scroll;
     }*/
 
-
-    .footerdiv{
+.footerdiv{
  display: inline-block;
  text-align: end;
  width: 24%;
 }
 
 #footertopdiv{
-
   float: right;
 }
 
@@ -156,7 +234,20 @@ ul {
   list-style: none;
 }
 
-.urlDiv {
-  display: inline-block;
-  padding-bottom: 20px;
+.breaking-news-title a{
+  font-size: 18px;
+  color: black;
 }
+
+#breaking-news-header {
+  background-color: #e10a0a;
+  border-radius: 0;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: 18px;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+

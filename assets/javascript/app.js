@@ -13,7 +13,7 @@ $(document).ready(function(){
 
 
 	// arrays of topics
-	var topics = ["Politics", "Finance", "Entertainment", "Technology", "Sports","Health"];
+	var topics = ["Politics", "Finance", "Entertainment", "Tech", "Sports","Health"];
 
 	// when any topic is clicked do the following...
 	$(document).on("click", "#topic-list li", function() {
@@ -61,7 +61,7 @@ function renderTopics(topics){
 		// creates new list elements
 		var topicList = $("<li>");
 
-		topicList.addClass("list-inline-item btn topic-list-item col-sm-3")
+		topicList.addClass("list-inline-item btn topic-list-item col-lg-2 col-md-4 col-6 px-0 mx-0")
 
 		// sets their inner text
 		topicList.text(topics[i]);
@@ -101,7 +101,7 @@ function search() {
 	        url: "https://api.cognitive.microsoft.com/bing/v5.0/news/search?" + $.param(params),
 	        beforeSend: function(xhrObj){
 	            // Request headers
-	            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","a3f99e8021864f3f8221c9be74777427");
+	            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","c4f6265d938341ba8234937653647f7d");
 	        },
 	        type: "GET"
 
@@ -135,10 +135,12 @@ function search() {
 					console.log("imageArticle " + i + ": " + imageArticle);
 				}
 
+				var articleDiv = $("<div>").addClass("card").attr("padding", "10px");
+
 				var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
 				var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
 				var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
-				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right");
+				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right").attr("width", "20px");
 				var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
 				var	imageDiv = $("<img>").addClass("float-left mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail").attr("width","100px");
 				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-4");
@@ -147,12 +149,12 @@ function search() {
 				saveBtnDiv.append(saveBtnIconDiv);
 				headlineDiv.append(urlDiv);
 
-				$("#article-box").append(headlineDiv);
-				$("#article-box").append(publishedDateDiv);
-				$("#article-box").append(saveBtnDiv);
-				$("#article-box").append(imageDiv);
-				$("#article-box").append(shortDescriptionDiv);
-
+				articleDiv.append(headlineDiv);
+				articleDiv.append(publishedDateDiv);
+				articleDiv.append(saveBtnDiv);
+				articleDiv.append(imageDiv);
+				articleDiv.append(shortDescriptionDiv);
+				$("#article-box").append(articleDiv);
 			}
 
 			updateMyAccount();
@@ -404,30 +406,36 @@ $(document).ready(function(){
       url: "https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890",
       method: "GET"
     }).done(function(response) {
-      // console.log(response);
-      // console.log(response.articles[0].title);
-      
-     
-      for (var i = 0; i < 10; i++){
+		console.log(response);
+		// console.log(response.articles[0].title);
 
-      // this variable holds the article titles from the ajax call response
-  		var articleTitle = response.articles[i].title;
+		// Grabs IMG from the first new article and Append to the breaking news box 
+		var imageUrl = response.articles[0].urlToImage; 
+		var newsPoster = $("<img>").addClass("img-fluid img-responsive mb-3").attr("src", imageUrl);
+		$("#breaking-news-box").append(newsPoster).attr("href",titleUrl).attr("target","_blank");
 
-  	  // this variable holds the URL for the Articles 
-      	var titleUrl = response.articles[i].url;
-      	// console.log(articleTitle);
+		for (var i = 0; i < 10; i++){
+        
+	      	// this variable holds the article titles from the ajax call response
+	      	var articleTitle = response.articles[i].title;
 
-      // Dynamically creating links for the articles and appending to the DOM
-      	var newsDiv = $("<a class='urlDiv'>").text(articleTitle).attr("href",titleUrl).attr("target","_blank");
 
-      	$(".article-text").append(newsDiv);
+		  	// this variable holds the URL for the Articles 
+			var titleUrl = response.articles[i].url;
+			// console.log(articleTitle);
 
-      }
+	      	// Dynamically creating links for the articles and appending to the DOM
+	        var breakingDiv = $("<div>").addClass("breaking-news-title py-3")
+	        var newsDiv = $("<a>").text(articleTitle).attr("href",titleUrl).attr("target","_blank").addClass("breaking-news-article");
+
+	        breakingDiv.append(newsDiv);
+	        $("#breaking-news-box").append(breakingDiv);
+	        
+		}
 
     });
 
 })
-
 
 
 
