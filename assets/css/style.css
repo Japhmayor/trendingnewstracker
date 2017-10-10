@@ -8,20 +8,20 @@ body{
 }
 
 .logo-box{
-z-index: 99;
-height: 60px;
-width: 60px;
-position:fixed;
-left:5;
-top:0;
-opacity: .8;
+  z-index: 99;
+  height: 60px;
+  width: 60px;
+  position:fixed;
+  left:5;
+  top:0;
+  opacity: .8;
 }
 
 .logo-holder{
   position: absolute;
   top: 0px;
-height: 60px;
-width: 60px;
+  height: 60px;
+  width: 60px;
 
 }
 
@@ -52,15 +52,6 @@ width: 60px;
 
 }
 
-.search-btn:hover{
-  color: gray;
-  border-color: gray;
-}
-
-.save-btn:hover{
-  color: white;
-  background-color: #e10a0a;
-}
 
 .search-btn{
   color: white;
@@ -68,10 +59,67 @@ width: 60px;
   border-color: white;
 }
 
+.search-btn:hover{
+  color: gray;
+  border-color: gray;
+}
+
 .save-btn{
   background-color: none;
   border-color: #e10a0a;
   color: #e10a0a;
+  width: 50px;
+  float: right;
+}
+
+.save-btn:hover{
+  color: white;
+  background-color: #e10a0a;
+
+}
+
+
+
+
+
+
+.article-text{
+  font-size: 15px;
+  font-weight: 200;
+  color: #333;
+  position: relative;
+
+}
+
+     .article-content-news {
+      overflow-y: scroll; 
+      height:800px;
+    }
+
+
+.article-title {
+  border-bottom: 1px solid lightgray;
+  font-size: 18px;
+  font-weight: 400;
+
+}
+
+.article-title a:hover {
+  text-decoration: none;
+  color: #e10a0a;
+}
+
+
+
+
+.article-date{
+  font-size: 12px;
+  font-weight: 500;  
+  text-transform: uppercase;
+      position: absolute;
+    top: 10px;
+
+
 }
 
 
@@ -80,26 +128,6 @@ width: 60px;
   font-size: 20px;
   font-weight: 500;
   text-transform: uppercase; 
-}
-
-.article-title {
-  border-bottom: 1px solid lightgray;
-    font-size: 20px;
-    font-weight: 500;
- 
-}
-
-
-.article-title a: hover{
-text-decoration: none;
-color: #e10a0a;
-}
-
-
-.article-date{
-  font-size: 15px;
-  font-weight: 500;  
-
 }
 
 .card-other{
@@ -111,19 +139,20 @@ color: #e10a0a;
 
 .card-shadow{
  margin-top: 20px;
-  border-radius: 0;
-  border: none;
-  background: #F7F7F9;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ border-radius: 0;
+ border: none;
+ background: #F7F7F9;
+ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .card{
+overflow: hidden;
  margin-top: 20px;
  padding: 20px;
-  border-radius: 0;
-  border: none;
-  background: #F7F7F9;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ border-radius: 0;
+ border: none;
+ background: #F7F7F9;
+ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 
@@ -141,8 +170,8 @@ color: #e10a0a;
 .navbar{
   background-color: #333;
   min-height: 60px;
-
-   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 
@@ -158,28 +187,9 @@ color: #e10a0a;
 }
 
 .navbar-toggler {
-   border: none;
+ border: none;
 }
 
-.navbar{
-  background-color: #3e3f42;
-}
-
-.nav-item li{
-  color: #e10a0a;
-}
-
-.navbar-toggler {
-   border: none;
-}
-
-.article-content{
-  width: 100%;
-  font-size: 18px;
-  font-weight: 200;
-  color: grey;
- /* margin-left: 3%*/;
-}
 
 
 #main-content-wrapper{
@@ -187,40 +197,55 @@ color: #e10a0a;
 }
 
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 450px}
+.row.content {height: 450px}
 
- /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #f1f1f1 ;
-      height: 100%;
-    }
+/* Set gray background color and 100% height */
+.sidenav {
+  background-color: #f1f1f1 ;
+  height: 100%;
+}
 
- /* Set black background color, white text and some padding */
-    footer {
-      background-color: #3e3f42 ;
-      color: white;
-      padding: 10px;
-    }
+/* Set black background color, white text and some padding */
+footer {
+  background-color: #3e3f42 ;
+  color: white;
+  padding: 10px;
+}
+
+@media screen and (min-width: 980px) {
+  #main-content-wrapper{
+    width: 95%;}
+
+  .navbar {
+    height: 60px;
+  }
+
+
+}
 
 @media screen and (max-width: 1380px) {
   #main-content-wrapper{
-    width: 85%;
-  }
+    width: 85%;}
+
+  
 }
 
 @media screen and (max-width: 1024px) {
   #main-content-wrapper{
     width:95%;
   }
+
 }
+
 
 @media screen and (max-width: 767px) {
   #logo-name{
-    display: none;
+    color: #333;
   }
+
 }
 
- /* On small screens, set height to 'auto' for sidenav and grid */
+/* On small screens, set height to 'auto' for sidenav and grid */
   /*@media screen and (max-width: 767px) {
     .sidenav {
       height: auto;
@@ -239,56 +264,56 @@ color: #e10a0a;
    .scroll {
       height:450px;
       overflow-y: scroll;
-    }*/
+      }*/
 
-.footerdiv{
- display: inline-block;
- text-align: end;
- width: 24%;
-}
+      .footerdiv{
+       display: inline-block;
+       text-align: end;
+       width: 24%;
+     }
 
-#footertopdiv{
-  float: right;
-}
+     #footertopdiv{
+      float: right;
+    }
 
-ul {
-  list-style: none;
-}
-
-
-.article-content {
-  overflow-y: scroll; 
-  height:435px;
-}
-
-.breaking-news-title { 
-  border-bottom: 1px solid lightgray;
-    font-size: 15px;
-    font-weight: 200;
-    line-height: 1.2;
-}
-
-.breaking-news-title a{
-  font-size: 14px;
-  color: black;
-}
-
-.breaking-news-title a:hover{
-  text-decoration: none;
-  font-weight: 400;
-}
+    ul {
+      list-style: none;
+    }
 
 
-#breaking-news-header {
-  background-color: #e10a0a;
-  margin: 20px;
-  border-radius: 0;
-  color: white;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  font-size: 18px;
-  text-align: center;
-  text-transform: uppercase;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
+    .article-content-breaking {
+      overflow-y: scroll; 
+      height:435px;
+    }
+
+    .breaking-news-title { 
+      border-bottom: 1px solid lightgray;
+      font-size: 15px;
+      font-weight: 200;
+      line-height: 1.2;
+    }
+
+    .breaking-news-title a{
+      font-size: 14px;
+      color: black;
+    }
+
+    .breaking-news-title a:hover{
+      text-decoration: none;
+      font-weight: 400;
+    }
+
+
+    #breaking-news-header {
+      background-color: #e10a0a;
+      margin: 20px;
+      border-radius: 0;
+      color: white;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      font-size: 18px;
+      text-align: center;
+      text-transform: uppercase;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
 
