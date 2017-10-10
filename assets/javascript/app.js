@@ -135,7 +135,9 @@ function search() {
 					console.log("imageArticle " + i + ": " + imageArticle);
 				}
 
-				var headlineDiv = $("<p>").addClass("card-title article-title mt-3 ");
+								var articleDiv = $("<div>").addClass("card");
+
+				var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
 				var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
 				var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
 				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right");
@@ -147,14 +149,12 @@ function search() {
 				saveBtnDiv.append(saveBtnIconDiv);
 				headlineDiv.append(urlDiv);
 
-				
-
-				$("#article-box").append(headlineDiv);
-				$("#article-box").append(publishedDateDiv);
-				$("#article-box").append(saveBtnDiv);
-				$("#article-box").append(imageDiv);
-				$("#article-box").append(shortDescriptionDiv);
-
+				articleDiv.append(headlineDiv);
+				articleDiv.append(publishedDateDiv);
+				articleDiv.append(saveBtnDiv);
+				articleDiv.append(imageDiv);
+				articleDiv.append(shortDescriptionDiv);
+				$("#article-box").append(articleDiv);
 			}
 
 			updateMyAccount();

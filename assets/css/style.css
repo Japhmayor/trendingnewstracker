@@ -3,6 +3,7 @@
 body{
  font-family: 'Montserrat', sans-serif;
  font-weight: 400;
+ line-height: 1.7;
 }
 
 #topic-list{
@@ -56,23 +57,58 @@ body{
   font-weight: bolder;
 }
 
-.article-title, .breaking-news-title{
+.article-title {
   border-bottom: 1px solid lightgray;
+    font-size: 20px;
+    font-weight: 500;
+ 
+}
+
+.breaking-news-title { 
+  border-bottom: 1px solid lightgray;
+    font-size: 15px;
+    font-weight: 200;
+    line-height: 1.2;
+}
+
+.article-title a: hover{
+text-decoration: none;
+color: #e10a0a;
+}
+
+
+.breaking-news-title a:hover{
+  text-decoration: none;
+  font-weight: 400;
 }
 
 .article-date{
-  font-size: 15px;  
+  font-size: 15px;
+  font-weight: 500;  
+
+}
+
+.card-other{
+
+  border-radius: 0;
+  border: none;
+
 }
 
 .card{
+ margin-top: 20px;
   border-radius: 0;
   border: none;
+  background: #F7F7F9;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+
 
 .card-title a{
   color: black;
-  font-size: 30px;
-  /*font-weight: bold;*/
+
+
 }
 
 .card-title a:hover{
@@ -80,11 +116,19 @@ body{
 }
 
 .navbar{
-  background-color: #3e3f42;
+  background-color: #333;
+  height: 60px;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .nav-item li{
   color: #e10a0a;
+}
+
+.nav-item:hover{
+  background-color: #212121;
+  color: white;
+
 }
 
 .navbar-toggler {
@@ -93,7 +137,9 @@ body{
 
 .article-content{
   width: 100%;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 200;
+  color: grey;
  /* margin-left: 3%*/;
 }
 
@@ -172,12 +218,17 @@ ul {
 }
 
 .breaking-news-title a{
-  font-size: 20px;
+  font-size: 18px;
   color: black;
 }
 
 #breaking-news-header {
-  background-color: red;
+  background-color: #e10a0a;
+  border-radius: 0;
   color: white;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
