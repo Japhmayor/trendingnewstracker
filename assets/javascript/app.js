@@ -59,13 +59,18 @@ var articleAddSwitch = true;
 
 // Grabs article data from savedArticles
 $(document).on("click", ".save-article-button", function() {
-	// Uses the ID value of i, tied to the <button> from the for loop to call savedArticles[i]
-	selectedArticle = savedArticles[parseInt(this.id)];
-	console.log("selectedArticle below");
-	console.log(selectedArticle);
-	// Allows content push to MyProfile modal
-	articleAddSwitch = true;
-	updateMyAccount();
+
+	if ( firebase.auth().currentUser ) {
+		// Uses the ID value of i, tied to the <button> from the for loop to call savedArticles[i]
+		selectedArticle = savedArticles[parseInt(this.id)];
+		console.log("selectedArticle below");
+		console.log(selectedArticle);
+		// Allows content push to MyProfile modal
+		articleAddSwitch = true;
+		updateMyAccount();
+	} else {
+		$("#sign-in-modal").modal("show");
+	}
 
 });
 
@@ -316,7 +321,7 @@ function initializeFirebaseAuth(){
 			$("#li-profile a").attr("title",email);
 			console.log(user.email);
 			// hides modal after user logged in succesfully
-			$('#sign-in-modal').modal('hide');
+			$("#sign-in-modal").modal("hide");
 			updateMyAccount();
 
 		} else {
