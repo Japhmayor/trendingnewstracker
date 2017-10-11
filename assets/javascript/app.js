@@ -54,14 +54,23 @@ var savedArticles = [];
 var selectedArticle;
 var displayName;
 var email;
+// Used to prevent the Firebase function from pushing repeated content to the MyProfile modal
+var articleAddSwitch = true;
 
 // Grabs article data from savedArticles
-$(document).on("click", "button", function() {
-	// Uses the ID value of i, tied to the <button> from the for loop to call savedArticles[i]
-	selectedArticle = savedArticles[parseInt(this.id)];
-	console.log("selectedArticle below");
-	console.log(selectedArticle);
-	updateMyAccount();
+$(document).on("click", ".save-article-button", function() {
+
+	if ( firebase.auth().currentUser ) {
+		// Uses the ID value of i, tied to the <button> from the for loop to call savedArticles[i]
+		selectedArticle = savedArticles[parseInt(this.id)];
+		console.log("selectedArticle below");
+		console.log(selectedArticle);
+		// Allows content push to MyProfile modal
+		articleAddSwitch = true;
+		updateMyAccount();
+	} else {
+		$("#sign-in-modal").modal("show");
+	}
 
 });
 
@@ -157,33 +166,54 @@ function search() {
 					//console.log("imageArticle " + i + ": " + imageArticle);
 				}
 
-				var articleDiv = $("<div>").addClass("card");
+				// var articleDiv = $("<div>").addClass("card");
 
-				var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
+				// var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
+				// var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
+				// var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
+				// var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right align-middle").addClass("save-article-button").attr("id", i).attr("title","Save article");
+
+				// var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
+				// var	imageDiv = $("<img>").addClass("mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail").attr("width","100px");
+				// var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-4");
+				// var sourceDiv = $("<div>").text(source);
+
+				// saveBtnDiv.append(saveBtnIconDiv);
+				// headlineDiv.append(urlDiv);
+				// shortDescriptionDiv.prepend(publishedDateDiv);
+				// shortDescriptionDiv.prepend(saveBtnDiv);
+				// shortDescriptionDiv.prepend(imageDiv);
+	
+
+
+				// articleDiv.append(headlineDiv);
+		
+				// articleDiv.append(shortDescriptionDiv);
+				// $("#article-box").append(articleDiv);
+
+				var newCard = $("<div>").addClass("card-shadow px-3 py-2 mt-2 mb-3")
+
+				var headlineDiv = $("<p>").addClass("card-title article-title py-2");
 				var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
 				var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
-				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right").attr("id", i);
+				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right save-article-button");
 				var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
-				var	imageDiv = $("<img>").addClass("mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail").attr("width","100px");
-				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-4");
+				var	imageDiv = $("<img>").addClass("float-left my-1 mr-2").attr("src",imageArticle);
+				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-1");
 				var sourceDiv = $("<div>").text(source);
 
 				saveBtnDiv.append(saveBtnIconDiv);
 				headlineDiv.append(urlDiv);
-				shortDescriptionDiv.prepend(publishedDateDiv);
-				shortDescriptionDiv.prepend(saveBtnDiv);
-				shortDescriptionDiv.prepend(imageDiv);
-	
 
+				newCard.append(saveBtnDiv);
+				newCard.append(headlineDiv);
+				newCard.append(publishedDateDiv);
+				newCard.append(imageDiv);
+				newCard.append(shortDescriptionDiv);
 
-				articleDiv.append(headlineDiv);
-		
-				articleDiv.append(shortDescriptionDiv);
-				$("#article-box").append(articleDiv);
+				$("#article-box").append(newCard);
+
 			}
-
-			// updateMyAccount();
-
 		})
 		.fail(function() {
 			alert("error");
@@ -304,7 +334,7 @@ function initializeFirebaseAuth(){
 
 	// checks if the authentication has changed
 	firebase.auth().onAuthStateChanged(function(user) {
-		if (user) {
+		if (user && articleAddSwitch === true) {
 			$("#li-profile").show(0);
 			$("#li-log-out").show(0);
 			$("#li-log-in").hide(0);
@@ -314,7 +344,8 @@ function initializeFirebaseAuth(){
 			$("#li-profile a").attr("title",email);
 			console.log(user.email);
 			// hides modal after user logged in succesfully
-			$('#sign-in-modal').modal('hide');
+			$("#sign-in-modal").modal("hide");
+			updateMyAccount();
 
 		} else {
 			// redirects to login
@@ -373,17 +404,24 @@ function initializeFirebaseAuth(){
 // writes to the firebase based on user's search
 // updates user information
 function updateMyAccount() {
-
-// 	// sets variables for firebase
+	console.log("running updateMyAccount");
+ 	// sets variables for firebase
 	var database = firebase.database();
 	var userName = displayName;
 	var userEmail = email;
-	var userFavArticleTitle = selectedArticle.name;
-	var userFavArticleDate = selectedArticle.datePublished;
-	var userFavArticleText = selectedArticle.description;
-	var userFavArticleURL = selectedArticle.url;	
+	// Containers that will hold specific article data when someone clicks on the favorite button
+	var userFavArticleTitle;
+	var userFavArticleDate;
+	var userFavArticleText;
+	var userFavArticleURL;
 
-	//
+	// This only runs if the selectedArticle var is populated. This prevents console errors for when the page first loads and no favorite button has been clicked yet.
+	if (selectedArticle !== undefined) {
+		userFavArticleTitle = selectedArticle.name;
+		userFavArticleDate = selectedArticle.datePublished;
+		userFavArticleText = selectedArticle.description;
+		userFavArticleURL = selectedArticle.url;
+	}
 
 	var user = {
 		// creates the data object to be written to firebase
@@ -397,7 +435,7 @@ function updateMyAccount() {
 	// updates the object in the database
 	database.ref("/users/" + userName).update(user);
 
-
+	// Stores the favorited article to an object
 	var articles = {
 
 	 	article : {
@@ -410,34 +448,47 @@ function updateMyAccount() {
 	 	userSearch: $("#search-input").tagsinput("items")
 	};	
 
-	database.ref("/users/"+ userName).push(articles);
+	// Only allows a push of the articles object if it has something in it. This prevents console errors.
+	if (articles.article.title !== undefined) {
+		database.ref("/users/"+ userName).push(articles);
+	}
 
 	// ***** Start New Stuff Added By Grant *****
 
 	// Fetch Firebase Data
 	database.ref("/users/" + userName).on("child_added", function(childSnapshot, prevChildKey) {
-		console.log("childSnapshot.val below")
-		// Fetches all saved articles
-		console.log(childSnapshot.val().article);
-		var fetchedTitle = childSnapshot.val().article.title;
-		var fetchedDate = childSnapshot.val().article.date;
-		var fetchedText = childSnapshot.val().article.text;
-		var fetchedURL = childSnapshot.val().article.url;
+		
+		if (articles.article.title !== undefined) {
+			// For some reason the .appends in this "if" would append multiple times to the MyProfile modal. Meaning, the same articles would show up more than once. This only lets it run if "true".
+			if (childSnapshot.val().article.title !== undefined && articleAddSwitch === true) {
+				// Fetches all saved articles
+				//console.log("childSnapshot.val below")
+				//console.log(childSnapshot.val().article);
+				var fetchedTitle = childSnapshot.val().article.title;
+				var fetchedDate = childSnapshot.val().article.date;
+				var fetchedText = childSnapshot.val().article.text;
+				var fetchedURL = childSnapshot.val().article.url;
 
-		var savedByUserArticleDiv = $("<div>").addClass("card").attr("padding", "10px");
-		var savedByUserHeadlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
-		var savedByUserUrlDiv = $("<a>").text(fetchedTitle).attr("href",fetchedURL).attr("target","_blank");
-		var savedByUserPublishedDateDiv = $("<span>").text("Published " + fetchedDate).addClass("article-date card-subtitle mb-2 text-muted");
-		var savedByUserShortDescriptionDiv = $("<p>").text(fetchedText).addClass("article-text card-text mb-4");
+				var savedByUserArticleDiv = $("<div>").addClass("card").attr("padding", "10px");
+				var savedByUserHeadlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
+				var savedByUserUrlDiv = $("<a>").text(fetchedTitle).attr("href",fetchedURL).attr("target","_blank");
+				var savedByUserPublishedDateDiv = $("<span>").text("Published " + fetchedDate).addClass("article-date card-subtitle mb-2 text-muted");
+				var savedByUserShortDescriptionDiv = $("<p>").text(fetchedText).addClass("article-text card-text mb-4");
 
-		savedByUserHeadlineDiv.append(savedByUserUrlDiv);
-		savedByUserArticleDiv.append(savedByUserHeadlineDiv);
-		savedByUserArticleDiv.append(savedByUserPublishedDateDiv);
-		savedByUserArticleDiv.append(savedByUserShortDescriptionDiv);
-		$("#saved-article-box").append(savedByUserArticleDiv);
+				savedByUserHeadlineDiv.append(savedByUserUrlDiv);
+				savedByUserArticleDiv.append(savedByUserHeadlineDiv);
+				savedByUserArticleDiv.append(savedByUserPublishedDateDiv);
+				savedByUserArticleDiv.append(savedByUserShortDescriptionDiv);
+				$("#saved-article-box").append(savedByUserArticleDiv);
+				console.log("appended to myprofile");
+				// Sets it to "false" to prevent another run.
+				articleAddSwitch = false;
+			}
+
+		}
+
 		$("#my-account-name").html(userName);
 		$("#my-account-email").html(userEmail);
-
 	});
 
 
@@ -488,7 +539,7 @@ function populateBreakingNews () {
 			}
 		}else if(currentState ==="false") {
 			$("#breaking-news-box").attr("data-empty","true");
-			$("#breaking-news-box").removeClass("breaking-news-scroll card-block article-content")
+			$("#breaking-news-box").removeClass("breaking-news-scroll card article-content")
 		}
     });
 }

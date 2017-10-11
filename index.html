@@ -62,8 +62,6 @@
         </div>
         <div class="modal-body">
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eum, perferendis nulla eos minima facere.</p>
-
           <div class="form-group">
             <label for="email">Email address:</label>
             <input id="email-input" type="email" class="form-control">
@@ -102,8 +100,8 @@
 
         <div class="my-account-container">
           <h3>My Profile</h3>
-          <div><strong>Name: </strong><span id="my-account-name" >Eva Simon</span></div>
-          <div><strong>E-mail: </strong><span id="my-account-email">abc@gmail.com</span></div>
+          <div><strong>Name: </strong><span id="my-account-name"></span></div>
+          <div><strong>E-mail: </strong><span id="my-account-email"></span></div>
           <h3>My Favorite Articles</h3>
           <div id="saved-article-box" class="article-content">
             <!-- Search results populate here -->
@@ -121,8 +119,8 @@
   <div class="row my-3">
     <div class="col-md-3 p-0">
       <div class="card-other">
-        <h4 id="breaking-news-header" class="card-header mx-auto mb-3 p-2"> Breaking News <i class="fa fa-caret-square-o-down float-right" aria-hidden="true"></i></h4>
-        <div id="breaking-news-box" data-empty="true"> 
+        <h4 id="breaking-news-header" class="card-header mx-auto mb-1 mx-2 p-2"> Breaking News <i class="fa fa-caret-square-o-down float-right" aria-hidden="true"></i></h4>
+        <div id="breaking-news-box" class="px-0" data-empty="true"> 
           <!-- Breaking News headlines populate here -->
         </div>
       </div>
@@ -155,15 +153,15 @@
       </div> 
       <div class="row my-3"> 
         <div class="col-md-12">
-          <div class="card-other">
-            <p class="card-header"> Search Results </p>
+          <div id="article-container" class="card">
+            <p class="card-header card-shadow mb-3"> Search Results </p>
 
             <div id="article-box" class="article-content">
 
               <!-- Search results populate here -->
 
             </div> 
-          </div> 
+          </dvi> 
         </div>
       </div> 
     </div>
