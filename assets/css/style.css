@@ -238,6 +238,20 @@ footer {
   color: #e10a0a;
 }
 
+/*sets css for log in/sign up modal*/
+#log-in-button {
+  background-color: #e10a0a;
+  border-color: #e10a0a;
+}
+
+#log-in-button:hover {
+  color: #ccc;
+}
+
+#log-in-error {
+  margin-top: 15px;
+}
+
 /*sets css for my account modal*/
 .my-account-container {
   width: 90%;

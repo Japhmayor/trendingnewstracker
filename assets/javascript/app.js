@@ -329,7 +329,7 @@ function initializeFirebaseAuth(){
 			displayName = user.displayName;
 			email = user.email;
 			$("#li-profile a").attr("title",email);
-			console.log(user.email);
+			// console.log(user.email);
 			// hides modal after user logged in succesfully
 			$("#sign-in-modal").modal("hide");
 
