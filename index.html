@@ -25,6 +25,9 @@
 </head>
 <body>
 
+
+<section id="main-wrapper"> <!-- used for sticky footer -->
+
   <header>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-faded mb-3">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +58,6 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <div><a href="index.html"><img class="logo-box" src="assets/images/placeholder.png"></a></div>
           <h5 class="modal-title">Please Log In!</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -113,11 +115,11 @@
     </div>
   </div>
   
+<marquee id="rolling-title-bar" behavior="scroll" direction="left"></marquee>
 
 <section id="main-content-wrapper" class="mx-auto">
 
-<marquee id="rolling-title-bar" behavior="scroll" direction="left"></marquee>
-  <div class="row my-3">
+  <div id="main" class="row my-3 clear-top">
     <div class="col-md-3 p-0">
       <div class="card-other">
         <h4 id="breaking-news-header" class="card-header mx-auto mb-1 mx-2 p-2"> Breaking News <i class="fa fa-caret-square-o-down float-right" aria-hidden="true"></i></h4>
@@ -162,22 +164,24 @@
               <!-- Search results populate here -->
 
             </div> 
-          </dvi> 
+          </div> 
         </div>
       </div> 
     </div>
   </div>
 </section> 
+</section> <!-- end of section tag used for sticky footer -->
 
 
 
-
-<footer class="container-fluid text-center align-middle m-0 p-3">
-  <div>
+<!-- <footer class="navbar navbar-fixed-bottom text-center align-middle">
    © 2017 Geo Trending News
-  </div>
 </footer>
+ -->
 
+ <footer class="container-fluid text-center align-middle">
+     © 2017 Geo Trending News
+ </footer>
 
 
 
@@ -194,6 +198,8 @@ crossorigin="anonymous"></script>
 <script type="text/javascript" src="assets/javascript/app.js" ></script>
 <!--This loads the map with the API key key=AIzaSyBb6g0T0iAgD3Q_1vsppg4dhzoO9I9j0Ys and runs the function "myMap"-->
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBb6g0T0iAgD3Q_1vsppg4dhzoO9I9j0Ys&callback=initMap"></script>
+<!-- Moment.js -->
+<script src= "https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
 
 </body>

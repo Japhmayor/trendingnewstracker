@@ -157,8 +157,11 @@ function search() {
 				savedArticles[i] = result;
 
 				// returns data for the project constraints
-				var publishedDate = result.datePublished;
+				var rawPublishedDate = moment(result.datePublished).valueOf();
+				var publishedDate = moment(rawPublishedDate).format("h:mm a, ddd, MMMM Do YYYY");
 				var rating; // (only return top results)
+
+				 //11:44 PM ET, Tue October 10, 2017
 
 				// returns data and stores them in variables for displaying article
 				var headline = result.name;
@@ -184,7 +187,7 @@ function search() {
 				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right save-article-button");
 				var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
 				var	imageDiv = $("<img>").addClass("float-left my-1 mr-2").attr("src",imageArticle);
-				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-1");
+				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text pb-3 mb-1");
 				var sourceDiv = $("<div>").text(source);
 
 				// builds the article box
