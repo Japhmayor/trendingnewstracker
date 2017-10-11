@@ -162,16 +162,16 @@ function search() {
 				var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
 				var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
 				var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
-				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right align-middle").attr("id", i);
+				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right").attr("id", i);
 				var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
-				var	imageDiv = $("<img>").addClass("mt-2 mr-2 img-responsive").attr("src",imageArticle).attr("alt","Article thumbnail");
+				var	imageDiv = $("<img>").addClass("mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail").attr("width","100px");
 				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-4");
 				var sourceDiv = $("<div>").text(source);
 
 				saveBtnDiv.append(saveBtnIconDiv);
 				headlineDiv.append(urlDiv);
-				headlineDiv.append(saveBtnDiv);
 				shortDescriptionDiv.prepend(publishedDateDiv);
+				shortDescriptionDiv.prepend(saveBtnDiv);
 				shortDescriptionDiv.prepend(imageDiv);
 	
 
