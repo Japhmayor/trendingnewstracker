@@ -17,35 +17,42 @@ $(document).ready(function(){
 
 	// when any topic is clicked do the following...
 	$(document).on("click", "#topic-list li", function() {
-		// resets news container
+		// resets article container
 		$("#article-box").empty();
-		console.log("Click Registered");
 
 		var currentTopic = $(this).text();
 		// adds current topic to the taginput
 		$("#search-input").tagsinput('add', currentTopic);
 
-	}); // ends click event
+	}); // ends topic click event
 
-	// calls the render buttons
-	renderTopics(topics);
 
+	// ***** Tag Input Section *****
 	// initializes tags input and limits the search tags
 	$("#search-input").tagsinput({
-		maxTags: 6
+		maxTags: 4
 	});
-
 	// calls search function after an item is added
 	$("#search-input").on("itemAdded", search);
 	// calls search function after an item is removed
 	$("#search-input").on("itemRemoved", search);
-
 	// calls search when search button is clicked
 	$("#search-btn").on("click", search);
+	// ***** End Tag Input Section *****
 
+
+	// renders the topic buttons
+	renderTopics(topics);
+
+	// populates news in the horizontal bar Source = HuffPost
+	scrollingBarNews()
+
+	// initializes Firebase User Authentication
 	initializeFirebaseAuth();
 
+
 }); // ***** End of document.ready *****
+
 
 // ***** Saved Article Container and Click Handler *****
 
@@ -59,7 +66,7 @@ var articleAddSwitch = true;
 
 // Grabs article data from savedArticles
 $(document).on("click", ".save-article-button", function() {
-
+	// checks if the user is logged in
 	if ( firebase.auth().currentUser ) {
 		// Uses the ID value of i, tied to the <button> from the for loop to call savedArticles[i]
 		selectedArticle = savedArticles[parseInt(this.id)];
@@ -69,20 +76,22 @@ $(document).on("click", ".save-article-button", function() {
 		articleAddSwitch = true;
 		updateMyAccount();
 	} else {
+		// prompts the user to sign in
 		$("#sign-in-modal").modal("show");
 	}
 
 });
-
 // ***** End Saved Article Container and Click Handler *****
+
+
 
 // ***** FUNCTIONS *****
 
-// limit 
+// sets limit for AJAX Call 
 var searchResultLimit = 10;
 
 
-// creates the topic buttons
+// creates topic buttons
 function renderTopics(topics){
 	// loops through the topics and appends to the markup
 	for ( i = 0; i < topics.length; i++ ) {
@@ -101,6 +110,7 @@ function renderTopics(topics){
 
 }
 
+// *****  Bing News API Section *****
 // Builds the News API and calls the AJAX
 function search() {
 	// sets ajax call based on the search-input
@@ -166,31 +176,6 @@ function search() {
 					//console.log("imageArticle " + i + ": " + imageArticle);
 				}
 
-				// var articleDiv = $("<div>").addClass("card");
-
-				// var headlineDiv = $("<p>").addClass("card-title article-title mt-3 pb-2");
-				// var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
-				// var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
-				// var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right align-middle").addClass("save-article-button").attr("id", i).attr("title","Save article");
-
-				// var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
-				// var	imageDiv = $("<img>").addClass("mt-2 mx-2").attr("src",imageArticle).attr("alt","Article thumbnail").attr("width","100px");
-				// var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-4");
-				// var sourceDiv = $("<div>").text(source);
-
-				// saveBtnDiv.append(saveBtnIconDiv);
-				// headlineDiv.append(urlDiv);
-				// shortDescriptionDiv.prepend(publishedDateDiv);
-				// shortDescriptionDiv.prepend(saveBtnDiv);
-				// shortDescriptionDiv.prepend(imageDiv);
-	
-
-
-				// articleDiv.append(headlineDiv);
-		
-				// articleDiv.append(shortDescriptionDiv);
-				// $("#article-box").append(articleDiv);
-
 				var newCard = $("<div>").addClass("card-shadow px-3 py-2 mt-2 mb-3")
 
 				var headlineDiv = $("<p>").addClass("card-title article-title py-2");
@@ -202,6 +187,7 @@ function search() {
 				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text mb-1");
 				var sourceDiv = $("<div>").text(source);
 
+				// builds the article box
 				saveBtnDiv.append(saveBtnIconDiv);
 				headlineDiv.append(urlDiv);
 
@@ -221,10 +207,10 @@ function search() {
 
 	}
 
-};
+} // *****  Bing News API Section *****
 
-// Google Map API function
 
+// *****  Google Map API Section *****
 function initMap() {
 	var mapOptions = {
 		// This puts the map in the center of the world
@@ -306,11 +292,10 @@ function initMap() {
 
 	});
 
-}
+} // *****  End Google Map API Section *****
 
 
 // *****  Firebase Section *****
-
 // Firebase Auth config.
 function initializeFirebaseAuth(){
 
@@ -342,14 +327,13 @@ function initializeFirebaseAuth(){
 			displayName = user.displayName;
 			email = user.email;
 			$("#li-profile a").attr("title",email);
-			console.log(user.email);
+			// console.log(user.email);
 			// hides modal after user logged in succesfully
 			$("#sign-in-modal").modal("hide");
-			updateMyAccount();
 
+			updateMyAccount();
 		} else {
 			// redirects to login
-			// window.location = "index.html";
 			$("#li-profile").hide(0);
 			$("#li-log-out").hide(0);
 			$("#li-log-in").show(0);
@@ -398,13 +382,12 @@ function initializeFirebaseAuth(){
 
 	});
 
-}
+} // End Firebase Auth config.
 
 
 // writes to the firebase based on user's search
 // updates user information
 function updateMyAccount() {
-	console.log("running updateMyAccount");
  	// sets variables for firebase
 	var database = firebase.database();
 	var userName = displayName;
@@ -430,8 +413,8 @@ function updateMyAccount() {
 			email : userEmail
 		}
 
-
 	};
+
 	// updates the object in the database
 	database.ref("/users/" + userName).update(user);
 
@@ -452,8 +435,6 @@ function updateMyAccount() {
 	if (articles.article.title !== undefined) {
 		database.ref("/users/"+ userName).push(articles);
 	}
-
-	// ***** Start New Stuff Added By Grant *****
 
 	// Fetch Firebase Data
 	database.ref("/users/" + userName).on("child_added", function(childSnapshot, prevChildKey) {
@@ -489,21 +470,14 @@ function updateMyAccount() {
 
 		$("#my-account-name").html(userName);
 		$("#my-account-email").html(userEmail);
+
 	});
-
-
-
-	// ***** End New Stuff Added By Grant *****
 
 } // *****  End Firebase Section *****
 
 
-
-
+// *****  Breaking News Section *****
 // Latest News Section from Google News API Source = CNN 
-
-
-// Latest News Section from Google News API
 function populateBreakingNews () {
 
    // Performing GET requests to the Google News API
@@ -546,46 +520,49 @@ function populateBreakingNews () {
 
 $("#breaking-news-header").on("click",populateBreakingNews);
 
-//runs when the page is loaded
+// runs when the page is loaded
 window.onload = function(){
 	//checks to see if the window width is larger than mobile view
     if($(window).width() > 575) {
     	//if so, make the breaking news expanded
         populateBreakingNews();
-    }	
+    }
+
 }
+// *****  End Breaking News Section *****
 
+
+// *****  Horizontal News Section *****
 // Scrolling Bar News is Populated here SOurce = HuffPost
-
-
-$(document).ready(function(){
+function scrollingBarNews() {
    // Performing GET requests to the Google News API
     $.ajax({
-      url: "https://newsapi.org/v1/articles?source=the-huffington-post&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890",
-      method: "GET"
+		url: "https://newsapi.org/v1/articles?source=the-huffington-post&sortBy=top&apiKey=1a778f69eb1940408bfab95ddaa2d890",
+		method: "GET"
     }).done(function(response) {
-
      
-      for (var i = 0; i < 10; i++){
-        
-      // this variable holds the article titles from the ajax call response
-      var scrollingTitle = response.articles[i].title;
+		for (var i = 0; i < 10; i++){
 
-      // // this variable holds the URL for the Articles 
-      var scrollingUrl = response.articles[i].url;
-        
-      // Dynamically creating links for the articles and appending to the DOM
-      var scrollingDiv = $("<div>").addClass("scrolling-news");
-      var newsBar = $("<a>").text(scrollingTitle).attr("href",scrollingUrl).attr("target","_blank").addClass("scrolling-news");
-     
+		// this variable holds the article titles from the ajax call response
+		var scrollingTitle = response.articles[i].title;
 
-      scrollingDiv.append(newsBar);
-      $("#rolling-title-bar").append(scrollingDiv);
-      
+		// // this variable holds the URL for the Articles 
+		var scrollingUrl = response.articles[i].url;
 
-      }
+		// Dynamically creating links for the articles and appending to the DOM
+		var scrollingDiv = $("<div>").addClass("scrolling-news");
+		var newsBar = $("<a>").text(scrollingTitle).attr("href",scrollingUrl).attr("target","_blank").addClass("scrolling-news");
+
+
+		scrollingDiv.append(newsBar);
+		$("#rolling-title-bar").append(scrollingDiv);
+
+
+		}
 
     });
 
+} // *****  End Horizontal News Section *****
 
-});
+
+
