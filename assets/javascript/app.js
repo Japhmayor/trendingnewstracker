@@ -184,7 +184,7 @@ function search() {
 				var headlineDiv = $("<p>").addClass("card-title article-title py-2");
 				var urlDiv = $("<a>").text(headline).attr("href",articleUrl).attr("target","_blank");
 				var publishedDateDiv = $("<span>").text("Published " + publishedDate + " by " + source).addClass("article-date card-subtitle mb-2 text-muted");
-				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right save-article-button");
+				var saveBtnDiv = $("<button>").addClass("save-btn btn btn-link float-right save-article-button").attr("title","Save article");
 				var saveBtnIconDiv = $("<i>").addClass("fa fa-bookmark").attr("aria-hidden","true");
 				var	imageDiv = $("<img>").addClass("float-left my-1 mr-2").attr("src",imageArticle);
 				var shortDescriptionDiv = $("<p>").text(shortDescription).addClass("article-text card-text pb-3 mb-1");

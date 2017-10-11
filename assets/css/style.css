@@ -45,7 +45,7 @@ footer {
   border-radius: 0;
   color:#e10a0a;
   font-size: 13px;
-  border-right: solid 1px #e10a0a;
+  /*border-right: solid 1px #e10a0a;*/
 }
 
 .topic-list-item:last-child{
@@ -168,6 +168,20 @@ footer {
 
 #article-container{
   background: none;
+}
+
+/*sets css for log in/sign up modal*/
+#log-in-button {
+  background-color: #e10a0a;
+  border-color: #e10a0a;
+}
+
+#log-in-button:hover {
+  color: #ccc;
+}
+
+#log-in-error {
+  margin-top: 15px;
 }
 
 #log-in-error { 
