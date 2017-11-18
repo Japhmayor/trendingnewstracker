@@ -1,4 +1,13 @@
 # Geo-Trend News
+Website link 
+
+https://ttejuosho.github.io/trendingnewstracker/index.html
+
+This websites uses 
+# Firebase as database and authentication.
+# Bing & Google Map and Google News APIs
+# JQuery & Boostrap for the front end
+
 
 ##### Project Contributors/Roles:
 * Scrum Master: Imran Kazmi
