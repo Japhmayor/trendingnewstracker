@@ -136,10 +136,10 @@ function search() {
 	  
 	  	// News AJAX Call
 	    $.ajax({
-	        url: "https://api.cognitive.microsoft.com/bing/v5.0/news/search?" + $.param(params),
+	        url: "https://api.cognitive.microsoft.com/bing/v7.0/news/search?" + $.param(params),
 	        beforeSend: function(xhrObj){
 	            // Request headers
-	            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","c4f6265d938341ba8234937653647f7d");
+	            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","b3ac521ba1ba4d019332bff2d50c952d");
 	        },
 	        type: "GET"
 
